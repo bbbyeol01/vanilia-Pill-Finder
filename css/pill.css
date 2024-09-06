@@ -1,0 +1,234 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 0;
+}
+.modal .infoContainer {
+  width: 600px;
+  height: 600px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 1px 3px 15px gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  overflow: scroll;
+}
+.modal .infoContainer .close {
+  width: 100%;
+  margin: 25px 50px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.modal .infoContainer .close img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.modal .infoContainer .image {
+  width: 80%;
+}
+.modal .infoContainer .image img {
+  width: 100%;
+}
+.modal .infoContainer .name {
+  width: 80%;
+  font-size: 15pt;
+  font-weight: bold;
+  word-break: break-all;
+}
+.modal .infoContainer .efficacy {
+  width: 80%;
+}
+.modal .infoContainer .method {
+  width: 80%;
+}
+
+.searchContainer {
+  width: 50vw;
+  min-width: 350px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.searchContainer .search {
+  display: flex;
+  justify-content: center;
+  border: solid lightgray 1px;
+  border-radius: 30px;
+  padding-left: 20px;
+  width: 70%;
+  height: 50px;
+}
+.searchContainer .search input {
+  width: 80%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+.searchContainer .search input::placeholder {
+  color: #888888;
+}
+.searchContainer .search button {
+  width: 20%;
+  border: none;
+  background-color: transparent;
+}
+.searchContainer .search img {
+  width: 25px;
+  height: 25px;
+}
+
+.count {
+  width: 100vw;
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+
+.pillContainer {
+  min-width: 500px;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  z-index: 1;
+}
+.pillContainer .loading {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  font-size: 24px;
+  color: black;
+  opacity: 0;
+  background-color: white;
+  z-index: 1000;
+}
+.pillContainer .loading .loadingText,
+.pillContainer .loading .loadingImg {
+  width: 30px;
+  position: fixed;
+  left: calc(50% - 30px);
+  top: 40%;
+}
+.pillContainer .noSearch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  display: none;
+  background-color: white;
+}
+.pillContainer .pill-item {
+  padding: 20px;
+  width: 150px;
+  height: 120px;
+  /* border: solid lightgray 1px; */
+  border-radius: 20px;
+  box-shadow: 1px 3px 15px lightgray;
+}
+.pillContainer .pill-item img {
+  width: 100%;
+}
+.pillContainer .pill-item .name {
+  font-size: 12pt;
+  font-weight: bold;
+  width: 100%;
+  height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pillContainer .pill-item .name .name-text {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pillContainer .pageContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  width: 100%;
+  height: 200px;
+  gap: 10px;
+}
+.pillContainer .pageContainer .prevBtn {
+  width: 39px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.pillContainer .pageContainer .prevBtn img {
+  width: 60%;
+  height: 60%;
+}
+.pillContainer .pageContainer .nextBtn {
+  width: 39px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.pillContainer .pageContainer .nextBtn img {
+  width: 60%;
+  height: 60%;
+}
+.pillContainer .pageContainer .pageBtn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.pillContainer .pageContainer .active {
+  background-color: #1cc027;
+  color: white;
+  font-weight: bolder;
+}
+
+@media (min-width: 576px) {
+  .pillContainer {
+    width: 700px;
+  }
+}
+@media (min-width: 992px) {
+  .pillContainer {
+    width: 1000px;
+  }
+}

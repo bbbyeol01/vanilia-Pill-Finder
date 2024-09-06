@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pill</title>
+    <script type="module" src="js/pill.js"></script>
+    <link rel="stylesheet" href="css/pill.css">
+</head>
+<body>
+
+    <main>
+        <div class="modal">
+            <div class="infoContainer">
+                <div class="close"><img src="/images/close-icon.png" alt="" srcset=""> </div>
+                <div class="name">약 이름</div>
+                <div class="image"><img class="pillImg" src="/images/null-img.jpg" alt="" srcset=""> </div>
+                <div class="efficacy">효능</div>
+                <div class="method">복용 방법</div>
+            </div>
+
+        </div>
+        <div class="searchContainer">
+            <div class="search">
+                <input type="text" class="searchInput" placeholder="약 이름을 검색하세요">
+                <button type="submit" class="searchBtn"><img src="./images/search-icon.png"></button>
+            </div>
+        </div>
+        <div class="pillContainer">
+            <div class="count"></div>
+            <div class="noSearch">
+                <p>검색 결과가 없습니다.</p>
+            </div>
+            <div class="loading" id="loading">
+                <img class="loadingImg" src="/images/loading-icon.gif" alt="" srcset="">
+                <!-- <div class="loadingText">
+                    Loading...
+                </div> -->
+            </div>
+            <div class="pageContainer"></div>
+        </div>
+
+    </main>
+
+</body>
+</html>
