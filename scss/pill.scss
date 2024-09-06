@@ -1,3 +1,7 @@
+* {
+    font-family: Pretendard;
+}
+
 html,
 body {
     padding: 0;
@@ -65,6 +69,10 @@ main {
             word-break: break-all;
         }
 
+        .label {
+            width: 80%;
+        }
+
         .efficacy {
             width: 80%;
         }
@@ -91,13 +99,14 @@ main {
         justify-content: center;
         border: solid lightgray 1px;
         border-radius: 30px;
-        padding-left: 20px;
+        padding-left: 1ch;
         width: 70%;
         height: 50px;
 
         input {
             width: 80%;
             border: none;
+            border-radius: inherit;
             outline: none;
             font-size: 15px;
         }
@@ -107,7 +116,11 @@ main {
         }
 
         button {
-            width: 20%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            width: 15%;
             border: none;
             background-color: transparent;
         }
@@ -149,7 +162,7 @@ main {
         color: black;
         opacity: 0;
         background-color: white;
-        z-index: 1000;
+        z-index: -999;
 
         .loadingText,
         .loadingImg {
@@ -177,9 +190,12 @@ main {
         /* border: solid lightgray 1px; */
         border-radius: 20px;
         box-shadow: 1px 3px 15px lightgray;
+        cursor: pointer;
 
         img {
             width: 100%;
+            cursor: pointer;
+            background-color: white;
         }
 
         .name {

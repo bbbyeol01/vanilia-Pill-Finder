@@ -1,3 +1,7 @@
+* {
+  font-family: Pretendard;
+}
+
 html,
 body {
   padding: 0;
@@ -60,6 +64,9 @@ main {
   font-weight: bold;
   word-break: break-all;
 }
+.modal .infoContainer .label {
+  width: 80%;
+}
 .modal .infoContainer .efficacy {
   width: 80%;
 }
@@ -81,13 +88,14 @@ main {
   justify-content: center;
   border: solid lightgray 1px;
   border-radius: 30px;
-  padding-left: 20px;
+  padding-left: 1ch;
   width: 70%;
   height: 50px;
 }
 .searchContainer .search input {
   width: 80%;
   border: none;
+  border-radius: inherit;
   outline: none;
   font-size: 15px;
 }
@@ -95,7 +103,10 @@ main {
   color: #888888;
 }
 .searchContainer .search button {
-  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 15%;
   border: none;
   background-color: transparent;
 }
@@ -131,7 +142,7 @@ main {
   color: black;
   opacity: 0;
   background-color: white;
-  z-index: 1000;
+  z-index: -999;
 }
 .pillContainer .loading .loadingText,
 .pillContainer .loading .loadingImg {
@@ -156,9 +167,12 @@ main {
   /* border: solid lightgray 1px; */
   border-radius: 20px;
   box-shadow: 1px 3px 15px lightgray;
+  cursor: pointer;
 }
 .pillContainer .pill-item img {
   width: 100%;
+  cursor: pointer;
+  background-color: white;
 }
 .pillContainer .pill-item .name {
   font-size: 12pt;

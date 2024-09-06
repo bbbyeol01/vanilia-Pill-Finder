@@ -128,8 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    loading.style.opacity = 1;
-    loading.style.zIndex = 9999;
+    // loading.style.opacity = 1;
+    // loading.style.zIndex = 9999;
     pills.forEach((pill, index) => {
       const pillItem = document.createElement("div");
       pillItem.setAttribute("data-value", index);
@@ -153,6 +153,9 @@ document.addEventListener("DOMContentLoaded", () => {
       pillItem.classList.add("pill-item");
 
       pillContainer.appendChild(pillItem); // pillContainer에 pillItem 추가
+      image.src = pill.image
+        ? "/images/loading-icon-background.gif"
+        : image.src;
 
       // 이미지가 로딩되기 전 null-img를 보여주고, 실제 이미지가 로딩된 후 변경
       const tempImg = new Image(); // 임시 이미지 객체 생성
@@ -161,16 +164,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // 실제 이미지 로딩이 완료되면 교체
       tempImg.onload = () => {
         image.src = pill.image;
-        setTimeout(() => {
-          loading.style.opacity = 0;
-          loading.style.zIndex = -999;
-        }, 500);
       };
 
       pillItem.addEventListener("click", () => {
         const value = pillItem.getAttribute("data-value");
         console.log(value);
-        modalImg.src = pill.image ? pill.image : "./images/null-img.jpg";
+        modalImg.src = pill.image ? pill.image : "/images/null-img.jpg";
         modalName.innerHTML = pill.name;
         modalEfficacy.innerHTML = pill.efficacy;
         modalMethod.innerHTML = pill.method;
