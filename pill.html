@@ -3,17 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pill</title>
+    <link rel="shortcut icon" href="images/pill-icon.png" type="image/x-icon">
+    <title>Pill Finder</title>
     <script type="module" src="js/pill.js"></script>
     <link rel="stylesheet" href="css/pill.css">
 </head>
 <body>
 
+    <header>
+        <section class="">
+            <div class="logo">PILL FINDER</div>
+            <!-- <button class="menuOpen">
+                <img src="images/menu-icon.png" alt="" srcset="">
+            </button> -->
+        </section>
+      
+    </header>
+    <!-- <aside>
+        <button class="menuOpen">
+            <img src="images/menu-icon.png" alt="" srcset="">
+        </button>
+        <div class="menu">
+
+        </div>
+    </aside> -->
     <main>
         <div class="modal">
             <div class="infoContainer">
                 <div class="close"><img src="/images/close-icon.png" alt="" srcset=""> </div>
-                <div class="name">약 이름</div>
+                <div class="nameContainer">
+                    <div class="company">제약</div>
+                    <div class="name">약 이름</div>
+                </div>
                 <div class="image"><img class="pillImg" src="/images/null-img.jpg" alt="" srcset=""> </div>
                 <div class="efficacy">효능</div>
                 <div class="method">복용 방법</div>
@@ -21,7 +42,7 @@
 
         </div>
         <div class="iconContainer">
-            <img class="pillImg active" src="images/pill.png" alt="" srcset="">
+            <img class="pillImg float-image" src="images/pill-3d-icon.png" alt="" srcset="">
         </div>
         <div class="searchContainer">
             <div class="search">
@@ -40,13 +61,12 @@
             <div class="noSearch">
                 <p>검색 결과가 없습니다.</p>
             </div>
-            <div class="loading" id="loading">
-                <img class="loadingImg" src="/images/loading-icon.gif" alt="" srcset="">
-                <!-- <div class="loadingText">
-                    Loading...
-                </div> -->
+    
+            <div class="pageContainer">
+                <button class="prevBtn"><img src="images/left-button-icon.png" alt="" srcset=""></button>
+                <div class="pageList"></div>
+                <button class="nextBtn"><img src="images/right-button-icon.png" alt="" srcset=""></button>
             </div>
-            <div class="pageContainer"></div>
         </div>
 
     </main>

@@ -1,32 +1,47 @@
 import API_KEY from "./config.js";
 
-let numOfRows = 10;
-
 document.addEventListener("DOMContentLoaded", () => {
+  // 초기값
+  let numOfRows = 10;
+  let total = 0;
+  let page = 1; // 현재 페이지
+  let startPage = 1; // 현재 페이지 그룹의 시작 페이지
+
+  const logo = document.querySelector(".logo");
+
   const searchBtn = document.querySelector(".searchBtn");
   const searchInput = document.querySelector(".searchInput");
   const pillContainer = document.querySelector(".pillContainer");
   const pageContainer = document.querySelector(".pageContainer");
+  const pageList = document.querySelector(".pageList");
   const prevBtn = document.querySelector(".prevBtn");
   const nextBtn = document.querySelector(".nextBtn");
 
-  const loading = document.querySelector(".loading");
   const noSearch = document.querySelector(".noSearch");
   const count = document.querySelector(".count");
-  const pageBtns = document.querySelectorAll(".pageBtn");
 
   const infoContainer = document.querySelector(".infoContainer");
   const infoCloseBtn = document.querySelector(".infoContainer .close");
 
   const modal = document.querySelector(".modal");
   const modalImg = document.querySelector(".infoContainer .image .pillImg");
-  const modalName = document.querySelector(".infoContainer .name");
+  const modalName = document.querySelector(
+    ".infoContainer .nameContainer .name"
+  );
+  const modalCompany = document.querySelector(".company");
   const modalEfficacy = document.querySelector(".infoContainer .efficacy");
   const modalMethod = document.querySelector(".infoContainer .method");
 
   const iconContainer = document.querySelector(".iconContainer");
   const pillImg = document.querySelector(".iconContainer .pillImg");
   const searchOption = document.querySelector(".searchOption");
+
+  const pillType = document.createElement("div");
+  pillType.classList.add("pillType");
+
+  logo.addEventListener("click", () => {
+    location.href = "pill.html";
+  });
 
   searchOption.addEventListener("change", (e) => {
     console.log(e.target.value);
@@ -49,10 +64,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   searchBtn.addEventListener("click", () => {
     let userInput = searchInput.value;
+    page = 1;
+    startPage = 1;
     noSearch.style.display = "none"; // 초기화
 
     iconContainer.style.height = 0;
     iconContainer.style.margin = 0;
+
+    pillContainer.style.height = "100%";
 
     pillImg.style.width = 0;
     pillImg.style.height = 0;
@@ -75,7 +94,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.key === "Enter") {
       // Enter 키가 눌렸을 때
       let userInput = searchInput.value;
+      page = 1;
+      startPage = 1;
       noSearch.style.display = "none"; // 초기화
+
+      pillContainer.style.height = "100vh";
 
       iconContainer.style.height = 0;
       iconContainer.style.margin = 0;
@@ -103,11 +126,22 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.style.zIndex = 0;
   });
 
-  pageBtns.forEach((pageBtn) => {
-    pageBtn.addEventListener("click", (event) => {
-      const dataValue = event.target.getAttribute("data-value");
-      console.log(dataValue);
-    });
+  // 이전 버튼 클릭 시
+  prevBtn.addEventListener("click", () => {
+    console.log(`startPage = ${startPage}`);
+    if (startPage > 1) {
+      startPage -= numOfRows; // 페이지 범위 변경
+      renderPagination();
+    }
+  });
+
+  // 다음 버튼 클릭 시
+  nextBtn.addEventListener("click", () => {
+    console.log(`startPage = ${startPage}`);
+    if (startPage < total / numOfRows) {
+      startPage += numOfRows; // 페이지 범위 변경
+    }
+    renderPagination();
   });
 
   /** open api */
@@ -129,18 +163,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const pills = [];
-    const page = data.body.pageNo;
-    const total = data.body.totalCount;
+    page = data.body.pageNo;
+    total = data.body.totalCount;
     data.body.items.map((pill) => {
       pills.push({
         name: pill.itemName,
+        company: pill.entpName,
         efficacy: pill.efcyQesitm
           ? pill.efcyQesitm.replaceAll(".", ". ")
           : pill.efcyQesitm,
         method: pill.useMethodQesitm
           ? pill.useMethodQesitm.replaceAll(".", ". ")
           : pill.useMethodQesitm,
-        image: pill.itemImage,
+        image: pill.itemImage ? pill.itemImage : "",
         date: pill.openDe,
         code: pill.bizrno,
       });
@@ -151,11 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return a.name.localeCompare(b.name);
     });
 
-    printInfo(pills, total, page);
+    printInfo(pills);
   }
 
   /** 약 리스트 출력 */
-  function printInfo(pills, total, page) {
+  function printInfo(pills) {
     count.innerHTML = `총 <strong>${total}</strong>개의 검색 결과가 있습니다.`;
 
     Array.from(pillContainer.children).forEach((child) => {
@@ -168,8 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // loading.style.opacity = 1;
-    // loading.style.zIndex = 9999;
+    /** 아이템 목록 추가 */
     pills.forEach((pill, index) => {
       const pillItem = document.createElement("div");
       pillItem.setAttribute("data-value", index);
@@ -206,10 +240,12 @@ document.addEventListener("DOMContentLoaded", () => {
         image.src = pill.image;
       };
 
+      /** 아이템 클릭하면 모달창 정보 변경 -> 띄움 */
       pillItem.addEventListener("click", () => {
         const value = pillItem.getAttribute("data-value");
         console.log(value);
-        modalImg.src = pill.image ? pill.image : "/images/null-img.jpg";
+        modalCompany.innerHTML = pill.company;
+        modalImg.src = pill.image ? pill.image : "images/null-img.jpg";
         modalName.innerHTML = pill.name;
         modalEfficacy.innerHTML = pill.efficacy;
         modalMethod.innerHTML = pill.method;
@@ -218,38 +254,40 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    if (10 < page) {
-      prevBtn.style.opacity = 1;
+    renderPagination();
+    pillContainer.appendChild(pageContainer);
+  }
+
+  // 페이지네이션
+  function renderPagination() {
+    pageList.innerHTML = ""; // 기존 페이지 버튼 삭제
+    pageContainer.style.opacity = 1;
+
+    let endPage = total / numOfRows; // 현재 페이지 그룹의 마지막 페이지
+    if (total % numOfRows) {
+      endPage++;
     }
 
-    pageContainer.innerHTML = "";
-    for (let i = 1; i <= total / numOfRows; i++) {
-      if (10 < i) {
-        break;
-      }
+    // 페이지 범위 설정
+    endPage = Math.min(startPage + numOfRows - 1, endPage);
 
-      const pageBtn = document.createElement("div");
+    // 페이지 버튼 생성
+    for (let i = startPage; i <= endPage; i++) {
+      const pageBtn = document.createElement("button");
+      pageBtn.textContent = i;
+      pageBtn.value = i;
       pageBtn.classList.add("pageBtn");
-      pageBtn.innerHTML = i;
 
-      if (i == page) {
+      if (page === i) {
         pageBtn.classList.add("active");
       }
 
-      pageBtn.setAttribute("data-value", i);
-
-      pageBtn.addEventListener("click", (event) => {
-        const dataValue = event.target.getAttribute("data-value");
-        console.log(dataValue);
-        getData(searchInput.value, dataValue);
+      pageBtn.addEventListener("click", (e) => {
+        page = parseInt(e.target.value); // 현재 페이지 업데이트
+        getData(searchInput.value, page);
+        console.log("현재 페이지:", page); // 페이지 클릭 시 페이지 값 출력
       });
-
-      pageContainer.appendChild(pageBtn);
+      pageList.appendChild(pageBtn);
     }
-
-    if (10 < page) {
-      nextBtn.style.opacity = 1;
-    }
-    pillContainer.appendChild(pageContainer);
   }
 });

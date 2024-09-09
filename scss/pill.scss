@@ -10,10 +10,75 @@ body {
 
 main {
     width: 100vw;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-bottom: solid lightgray 1px;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 70px;
+    z-index: 99999;
+
+    section {
+        display: flex;
+        align-items: center;
+        width: 70vw;
+        height: inherit;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            font-size: 15pt;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .menuOpen {
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+
+            img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    }
+
+
+}
+
+aside {
+    position: absolute;
+    width: 100px;
+    background-color: white;
+    border-right: lightgray 1px solid;
+    height: 100%;
+
+    .menuOpen {
+        width: 100%;
+        height: 100px;
+        background-color: transparent;
+        border: none;
+        border-bottom: lightgray 1px solid;
+        cursor: pointer;
+
+        img {
+            width: 30%;
+            height: 30%;
+        }
+    }
 }
 
 .modal {
@@ -29,7 +94,8 @@ main {
     z-index: 0;
 
     .infoContainer {
-        width: 600px;
+        width: 50vw;
+        min-width: 400px;
         height: 600px;
         background-color: white;
         border-radius: 20px;
@@ -62,12 +128,35 @@ main {
             }
         }
 
-        .name {
+        .nameContainer {
+
+
             width: 80%;
-            font-size: 15pt;
-            font-weight: bold;
-            word-break: break-all;
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: nowrap;
+
+            .company {
+                margin-right: 8px;
+                flex-shrink: 0;
+                padding: 5px 10px;
+                border-radius: 15px;
+                background-color: lightcoral;
+                color: white;
+                /* pillType의 크기를 고정 */
+            }
+
+            .name {
+                font-size: 15pt;
+                font-weight: bold;
+                word-break: break-all;
+                margin-top: 2px;
+            }
+
+
         }
+
+
 
         .label {
             width: 80%;
@@ -79,46 +168,72 @@ main {
 
         .method {
             width: 80%;
+            margin-bottom: 80px;
+        }
+
+
+
+
+    }
+}
+
+.infoContainer::-webkit-scrollbar {
+    display: none;
+}
+
+
+.iconContainer {
+
+    width: 80%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 130px;
+    opacity: 1;
+    transition: all 0.7s ease;
+
+    img {
+        width: 200px;
+        height: 200px;
+        transition: all 0.7s ease;
+        animation: float 3s ease-in-out infinite;
+        /* 둥둥 떠다니는 애니메이션 */
+        opacity: 1;
+        /* 초기 불투명도 */
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0px);
+            /* 원래 위치 */
+        }
+
+        50% {
+            transform: translateY(20px);
+            /* 위로 20px */
+        }
+
+        100% {
+            transform: translateY(0px);
+            /* 원래 위치로 돌아옴 */
         }
     }
 
 
 }
 
-.iconContainer {
-
-    width: 80%;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
-    opacity: 1;
-    transition: all 0.7s ease;
-    transform: rotate(10deg);
-
-
-    img {
-        // transition: width 0.5s ease height 0.5s ease;
-        transition: all 0.5s ease;
-        width: 250px;
-        height: 250px;
-    }
-
-    .active {
-        transform: translateY(15px);
-    }
-
-}
-
 .searchContainer {
+    margin-top: 10vh;
     width: 50vw;
     min-width: 400px;
+    min-height: 120px;
     height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
+
 
     .search {
         display: flex;
@@ -133,7 +248,7 @@ main {
             border: none;
             border-radius: inherit;
             outline: none;
-            font-size: 15px;
+            font-size: 12pt;
             margin-left: 10px;
         }
 
@@ -170,23 +285,27 @@ main {
 }
 
 .count {
+    justify-self: flex-start;
     width: 100vw;
     text-align: center;
-    margin: 0 0 30px 0;
+    margin: 0 0 30px 20px;
 }
 
 
 .pillContainer {
-    min-width: 500px;
-    width: 70%;
-    height: 100%;
+    min-width: 400px;
+    max-width: 1200px;
+    width: 80%;
+    height: 0vh;
     display: flex;
     // justify-content: space-evenly;
     justify-content: center;
+    align-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 10px;
     z-index: 1;
+    margin: 0 auto;
 
     .loading {
         display: flex;
@@ -218,6 +337,7 @@ main {
         display: none;
         background-color: white;
     }
+
 
     .pill-item {
         padding: 20px;
@@ -256,57 +376,41 @@ main {
     .pageContainer {
         display: flex;
         justify-content: center;
-        margin-top: 30px;
+        align-items: center;
         width: 100%;
-        height: 200px;
-        gap: 10px;
+        height: 150px;
+        opacity: 0;
 
+        .pageList {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 0 10px 0 10px;
+        }
+
+        .pageBtn,
+        .nextBtn,
         .prevBtn {
-            width: 39px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-
-            img {
-                width: 60%;
-                height: 60%;
-
-            }
-        }
-
-        .nextBtn {
-            width: 39px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-
-            img {
-                width: 60%;
-                height: 60%;
-
-            }
-        }
-
-        .pageBtn {
             width: 40px;
             height: 40px;
             border: 1px solid lightgray;
+            color: #888;
+            background-color: white;
             border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
 
-
-
+            img {
+                width: 50%;
+            }
         }
 
+
         .active {
-            background-color: rgb(28, 192, 39);
+            background-color: rgb(150, 185, 255);
             color: white;
             font-weight: bolder;
         }
@@ -314,25 +418,32 @@ main {
 }
 
 
-//기본으로 작성되는 CSS는 576px보다 작은 화면에서 작동 됩니다. 
-// 가로모드 모바일 디바이스 (가로 해상도가 576px 보다 큰 화면에 적용) 
-@media (min-width: 576px) {
-    .pillContainer {
-        width: 700px;
-    }
+
+// 기본 CSS를 작성합니다. 
+// 기본으로 작성되는 CSS는 1199px보다 큰 화면에서 작동 됩니다.
+// 세로모드 모바일 디바이스 (가로 해상도가 576px 보다 작은 화면에 적용) 
+@media (max-width: 575px) {
+    .pillContainer {}
+
+
 
 }
 
-// 태블릿 디바이스 (가로 해상도가 768px 보다 큰 화면에 적용) 
-@media (min-width: 768px) {
-    .pillContainer {
-        // width: 500px;
+// 가로모드 모바일 디바이스 (가로 해상도가 768px 보다 작은 화면에 적용) 
+@media (max-width: 767px) {}
+
+// 태블릿 디바이스 (가로 해상도가 992px 보다 작은 화면에 적용) 
+@media (max-width: 991px) {
+    .nameContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .count {
+        margin: 3vh;
     }
 }
 
-// 데스크탑 (가로 해상도가 992px 보다 큰 화면에 적용) 
-@media (min-width: 992px) {
-    .pillContainer {
-        width: 1000px;
-    }
-}
+// 데스크탑 (가로 해상도가 1200px 보다 작은 화면에 적용)
+@media (max-width: 1199px) {}
