@@ -74,9 +74,29 @@ main {
   width: 80%;
 }
 
+.iconContainer {
+  width: 80%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  opacity: 1;
+  transition: all 0.7s ease;
+  transform: rotate(10deg);
+}
+.iconContainer img {
+  transition: all 0.5s ease;
+  width: 250px;
+  height: 250px;
+}
+.iconContainer .active {
+  transform: translateY(15px);
+}
+
 .searchContainer {
   width: 50vw;
-  min-width: 350px;
+  min-width: 400px;
   height: 150px;
   display: flex;
   align-items: center;
@@ -88,16 +108,16 @@ main {
   justify-content: center;
   border: solid lightgray 1px;
   border-radius: 30px;
-  padding-left: 1ch;
   width: 70%;
   height: 50px;
 }
 .searchContainer .search input {
-  width: 80%;
+  width: 70%;
   border: none;
   border-radius: inherit;
   outline: none;
   font-size: 15px;
+  margin-left: 10px;
 }
 .searchContainer .search input::placeholder {
   color: #888888;
@@ -107,12 +127,21 @@ main {
   justify-content: flex-end;
   align-items: center;
   width: 15%;
+  margin-right: 10px;
   border: none;
   background-color: transparent;
 }
 .searchContainer .search img {
   width: 25px;
   height: 25px;
+}
+.searchContainer .search select {
+  border: none;
+  border-radius: inherit;
+  outline: none;
+  padding: 0 10px 0px 15px;
+  color: #888;
+  font-size: 15px;
 }
 
 .count {
@@ -126,7 +155,7 @@ main {
   width: 70%;
   height: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 10px;

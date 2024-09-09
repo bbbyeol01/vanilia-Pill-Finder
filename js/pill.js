@@ -24,9 +24,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalEfficacy = document.querySelector(".infoContainer .efficacy");
   const modalMethod = document.querySelector(".infoContainer .method");
 
+  const iconContainer = document.querySelector(".iconContainer");
+  const pillImg = document.querySelector(".iconContainer .pillImg");
+  const searchOption = document.querySelector(".searchOption");
+
+  searchOption.addEventListener("change", (e) => {
+    console.log(e.target.value);
+    if (e.target.value === "itemName") {
+      searchInput.placeholder = "약 이름을 검색하세요";
+    } else {
+      searchInput.placeholder = "증상을 검색하세요";
+    }
+  });
+
+  pillImg.classList.add("active");
+
+  // setInterval(() => {
+  //   pillImg.classList.add("active");
+  // }, 2500);
+
+  // setInterval(() => {
+  //   pillImg.classList.remove("active");
+  // }, 5000);
+
   searchBtn.addEventListener("click", () => {
-    let pillName = searchInput.value;
+    let userInput = searchInput.value;
     noSearch.style.display = "none"; // 초기화
+
+    iconContainer.style.height = 0;
+    iconContainer.style.margin = 0;
+
+    pillImg.style.width = 0;
+    pillImg.style.height = 0;
+    pillImg.style.opacity = 0;
 
     Array.from(pillContainer.children).forEach((child) => {
       if (
@@ -38,14 +68,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    getData(pillName);
+    getData(userInput, 1);
   });
 
   searchInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       // Enter 키가 눌렸을 때
-      let pillName = searchInput.value;
+      let userInput = searchInput.value;
       noSearch.style.display = "none"; // 초기화
+
+      iconContainer.style.height = 0;
+      iconContainer.style.margin = 0;
+
+      pillImg.style.width = 0;
+      pillImg.style.height = 0;
+      pillImg.style.opacity = 0;
 
       Array.from(pillContainer.children).forEach((child) => {
         if (
@@ -57,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      getData(pillName, 1);
+      getData(userInput, 1);
     }
   });
 
@@ -73,8 +110,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  async function getData(pillName, pageNo) {
-    const url = `http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList?ServiceKey=${API_KEY}&type=${"json"}&pageNo=${pageNo}&numOfRows=${numOfRows}&itemName=${pillName}`;
+  /** open api */
+  async function getData(userInput, pageNo) {
+    let searchType = searchOption.value;
+
+    const url = `http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList?ServiceKey=${API_KEY}&type=${"json"}&pageNo=${pageNo}&numOfRows=${numOfRows}&${searchType}=${userInput}`;
 
     const response = await fetch(url);
     const data = await response.json();
