@@ -36,6 +36,7 @@ header {
         .logo {
             display: flex;
             align-items: center;
+            width: 20%;
             height: 100%;
             text-align: center;
             font-size: 15pt;
@@ -43,17 +44,31 @@ header {
             cursor: pointer;
         }
 
-        .menuOpen {
+        .menuContainer {
+            width: 80%;
             height: 100%;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 20px;
 
-            img {
-                width: 30px;
-                height: 30px;
+            * {
+                cursor: pointer;
             }
+
         }
+
+        // .menuOpen {
+        //     height: 100%;
+        //     background-color: transparent;
+        //     border: none;
+        //     cursor: pointer;
+
+        //     img {
+        //         width: 30px;
+        //         height: 30px;
+        //     }
+        // }
     }
 
 
@@ -96,7 +111,7 @@ aside {
     .infoContainer {
         width: 50vw;
         min-width: 400px;
-        height: 600px;
+        height: 650px;
         background-color: white;
         border-radius: 20px;
         box-shadow: 1px 3px 15px gray;
@@ -104,7 +119,7 @@ aside {
         flex-direction: column;
         align-items: center;
         gap: 20px;
-        overflow: scroll;
+        overflow: auto;
 
         .close {
             width: 100%;
@@ -168,7 +183,25 @@ aside {
 
         .method {
             width: 80%;
-            margin-bottom: 80px;
+        }
+
+        .findPharmacy {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 50px;
+
+            button {
+                border: none;
+                border-radius: 15px;
+                background-color: #96b9ff;
+                color: white;
+                font-size: 10pt;
+                width: 150px;
+                height: 50px;
+                cursor: pointer;
+            }
         }
 
 
@@ -197,7 +230,7 @@ aside {
         width: 200px;
         height: 200px;
         transition: all 0.7s ease;
-        animation: float 3s ease-in-out infinite;
+        animation: float 4s ease-in-out infinite;
         /* 둥둥 떠다니는 애니메이션 */
         opacity: 1;
         /* 초기 불투명도 */
@@ -205,17 +238,16 @@ aside {
 
     @keyframes float {
         0% {
-            transform: translateY(0px);
+            transform: translateY(10px);
             /* 원래 위치 */
         }
 
         50% {
-            transform: translateY(20px);
-            /* 위로 20px */
+            transform: translateY(35px);
         }
 
         100% {
-            transform: translateY(0px);
+            transform: translateY(10px);
             /* 원래 위치로 돌아옴 */
         }
     }
@@ -378,7 +410,7 @@ aside {
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 150px;
+        height: 0px;
         opacity: 0;
 
         .pageList {

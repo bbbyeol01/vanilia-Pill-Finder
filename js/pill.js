@@ -1,6 +1,8 @@
 import API_KEY from "./config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const companyPage = initCompanyPage();
+
   // 초기값
   let numOfRows = 10;
   let total = 0;
@@ -8,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let startPage = 1; // 현재 페이지 그룹의 시작 페이지
 
   const logo = document.querySelector(".logo");
+  const pillFinder = document.querySelector(".pillFinder");
 
   const searchBtn = document.querySelector(".searchBtn");
   const searchInput = document.querySelector(".searchInput");
@@ -31,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalCompany = document.querySelector(".company");
   const modalEfficacy = document.querySelector(".infoContainer .efficacy");
   const modalMethod = document.querySelector(".infoContainer .method");
+  const goToPage = document.querySelector(".goToPage");
 
   const iconContainer = document.querySelector(".iconContainer");
   const pillImg = document.querySelector(".iconContainer .pillImg");
@@ -39,8 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const pillType = document.createElement("div");
   pillType.classList.add("pillType");
 
+  pillFinder.addEventListener("click", () => {
+    location.href = "index.html";
+  });
+
   logo.addEventListener("click", () => {
-    location.href = "pill.html";
+    location.href = "index.html";
   });
 
   searchOption.addEventListener("change", (e) => {
@@ -52,16 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  pillImg.classList.add("active");
-
-  // setInterval(() => {
-  //   pillImg.classList.add("active");
-  // }, 2500);
-
-  // setInterval(() => {
-  //   pillImg.classList.remove("active");
-  // }, 5000);
-
+  /** 검색(버튼 클릭) */
   searchBtn.addEventListener("click", () => {
     let userInput = searchInput.value;
     page = 1;
@@ -72,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     iconContainer.style.margin = 0;
 
     pillContainer.style.height = "100%";
+    pageContainer.style.height = "150px";
 
     pillImg.style.width = 0;
     pillImg.style.height = 0;
@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getData(userInput, 1);
   });
 
+  /** 검색(엔터) */
   searchInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       // Enter 키가 눌렸을 때
@@ -99,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
       noSearch.style.display = "none"; // 초기화
 
       pillContainer.style.height = "100vh";
+      pageContainer.style.height = "150px";
 
       iconContainer.style.height = 0;
       iconContainer.style.margin = 0;
@@ -126,6 +128,10 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.style.zIndex = 0;
   });
 
+  goToPage.addEventListener("click", () => {
+    window.open(companyPage.get(modalCompany.innerHTML));
+  });
+
   // 이전 버튼 클릭 시
   prevBtn.addEventListener("click", () => {
     console.log(`startPage = ${startPage}`);
@@ -143,6 +149,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     renderPagination();
   });
+
+  /** 제약회사별 약국 찾기 페이지 */
+  function initCompanyPage() {
+    const companyPage = new Map();
+    companyPage
+      .set(
+        "한미약품(주)",
+        "https://www.hanmi.co.kr/business/product/pharmacy/search.hm"
+      )
+      .set("동아제약(주)", "http://www.dpharm.co.kr/pharmacy/finder")
+      .set("태극제약(주)", "https://www.taiguk.co.kr/store/list.jsp")
+      .set("(주)대웅제약", "https://www.daewoong.co.kr/kr/product/pharmacy")
+      .set(
+        "제이더블유중외제약(주)",
+        "https://www.jw-pharma.co.kr/mobile/pharma/ko/product/pharmacy_search.jsp"
+      )
+      .set("(주)종근당", "https://www.ckdpharm.com/searchPharmacy.do")
+      .set("(주)유유제약", "https://www.yuyu.co.kr/en/productInfo/pharmacy.do")
+      .set(
+        "(유)한풍제약",
+        "https://www.hanpoong.co.kr/products/find-sales-pharmacy"
+      )
+      .set("광동제약(주)", "https://www.ekdp.com/inc/search_phamacy.do")
+      .set("(주)유한양행", "https://www.yuhan.co.kr/Products/Pharmacy/")
+      .set("대원제약(주)", "https://www.daewonpharm.com/products/sub03_01.jsp")
+      .set("일동제약(주)", "https://mobile.ildong.com/kor/pharm/list.id")
+      .set("현대약품(주)", "http://www.hyundaipharm.co.kr/store/result.jsp")
+      .set(
+        "동화약품(주)",
+        "https://www.dong-wha.co.kr/product/pharm_search1.asp"
+      );
+
+    return companyPage;
+  }
 
   /** open api */
   async function getData(userInput, pageNo) {
@@ -250,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modalEfficacy.innerHTML = pill.efficacy;
         modalMethod.innerHTML = pill.method;
         modal.style.opacity = 1;
-        modal.style.zIndex = 9999;
+        modal.style.zIndex = 9999999;
       });
     });
 

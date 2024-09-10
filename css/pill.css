@@ -37,21 +37,23 @@ header section {
 header section .logo {
   display: flex;
   align-items: center;
+  width: 20%;
   height: 100%;
   text-align: center;
   font-size: 15pt;
   font-weight: bold;
   cursor: pointer;
 }
-header section .menuOpen {
+header section .menuContainer {
+  width: 80%;
   height: 100%;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
 }
-header section .menuOpen img {
-  width: 30px;
-  height: 30px;
+header section .menuContainer * {
+  cursor: pointer;
 }
 
 aside {
@@ -89,7 +91,7 @@ aside .menuOpen img {
 .modal .infoContainer {
   width: 50vw;
   min-width: 400px;
-  height: 600px;
+  height: 650px;
   background-color: white;
   border-radius: 20px;
   box-shadow: 1px 3px 15px gray;
@@ -97,7 +99,7 @@ aside .menuOpen img {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  overflow: scroll;
+  overflow: auto;
 }
 .modal .infoContainer .close {
   width: 100%;
@@ -146,7 +148,23 @@ aside .menuOpen img {
 }
 .modal .infoContainer .method {
   width: 80%;
-  margin-bottom: 80px;
+}
+.modal .infoContainer .findPharmacy {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+.modal .infoContainer .findPharmacy button {
+  border: none;
+  border-radius: 15px;
+  background-color: #96b9ff;
+  color: white;
+  font-size: 10pt;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
 }
 
 .infoContainer::-webkit-scrollbar {
@@ -167,22 +185,21 @@ aside .menuOpen img {
   width: 200px;
   height: 200px;
   transition: all 0.7s ease;
-  animation: float 3s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
   /* 둥둥 떠다니는 애니메이션 */
   opacity: 1;
   /* 초기 불투명도 */
 }
 @keyframes float {
   0% {
-    transform: translateY(0px);
+    transform: translateY(10px);
     /* 원래 위치 */
   }
   50% {
-    transform: translateY(20px);
-    /* 위로 20px */
+    transform: translateY(35px);
   }
   100% {
-    transform: translateY(0px);
+    transform: translateY(10px);
     /* 원래 위치로 돌아옴 */
   }
 }
@@ -321,7 +338,7 @@ aside .menuOpen img {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 150px;
+  height: 0px;
   opacity: 0;
 }
 .pillContainer .pageContainer .pageList {
