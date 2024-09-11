@@ -6,10 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // 초기값
   let numOfRows = 10;
   let total = 0;
-  let page = 1; // 현재 페이지
+  let page = 2; // 현재 페이지
   let startPage = 1; // 현재 페이지 그룹의 시작 페이지
 
   const logo = document.querySelector(".logo");
+  const logoContainer = document.querySelector(".logoContainer");
   const pillFinder = document.querySelector(".pillFinder");
 
   const searchBtn = document.querySelector(".searchBtn");
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     location.href = "index.html";
   });
 
-  logo.addEventListener("click", () => {
+  logoContainer.addEventListener("click", () => {
     location.href = "index.html";
   });
 
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     iconContainer.style.height = 0;
     iconContainer.style.margin = 0;
 
-    pillContainer.style.height = "100%";
+    pillContainer.style.height = "100vh";
     pageContainer.style.height = "150px";
 
     pillImg.style.width = 0;
@@ -129,7 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   goToPage.addEventListener("click", () => {
-    window.open(companyPage.get(modalCompany.innerHTML));
+    const pageAddr = companyPage.get(modalCompany.innerHTML);
+    window.open(pageAddr);
   });
 
   // 이전 버튼 클릭 시
@@ -179,7 +181,9 @@ document.addEventListener("DOMContentLoaded", () => {
       .set(
         "동화약품(주)",
         "https://www.dong-wha.co.kr/product/pharm_search1.asp"
-      );
+      )
+      .set("(주)보령", "https://pharm.boryung.co.kr/product/search_pharmacy.do")
+      .set("(주)녹십자", "https://m.gcbiopharma.com/product/store.do");
 
     return companyPage;
   }
@@ -282,6 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       /** 아이템 클릭하면 모달창 정보 변경 -> 띄움 */
       pillItem.addEventListener("click", () => {
+        goToPage.style.backgroundColor = "#96b9ff";
         const value = pillItem.getAttribute("data-value");
         console.log(value);
         modalCompany.innerHTML = pill.company;
@@ -291,6 +296,10 @@ document.addEventListener("DOMContentLoaded", () => {
         modalMethod.innerHTML = pill.method;
         modal.style.opacity = 1;
         modal.style.zIndex = 9999999;
+
+        if (!companyPage.get(modalCompany.innerHTML)) {
+          goToPage.style.backgroundColor = "lightgray";
+        }
       });
     });
 
