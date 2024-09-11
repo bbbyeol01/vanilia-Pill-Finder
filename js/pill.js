@@ -3,13 +3,17 @@ import API_KEY from "./config.js";
 document.addEventListener("DOMContentLoaded", () => {
   const companyPage = initCompanyPage();
 
-  // 초기값
+  // 한 화면에 보여줄 아이템 개수
   let numOfRows = 10;
+  // 한 화면에 보여줄 페이지 개수
+  let numOfPage = 5;
+  //총 아이템 개수
   let total = 0;
-  let page = 2; // 현재 페이지
-  let startPage = 1; // 현재 페이지 그룹의 시작 페이지
+  // 현재 페이지
+  let page = 1;
+  // 현재 페이지 그룹의 시작 페이지
+  let startPage = 1;
 
-  const logo = document.querySelector(".logo");
   const logoContainer = document.querySelector(".logoContainer");
   const pillFinder = document.querySelector(".pillFinder");
 
@@ -72,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     iconContainer.style.margin = 0;
 
     pillContainer.style.height = "100vh";
-    pageContainer.style.height = "150px";
+    pageContainer.style.height = "10vh";
 
     pillImg.style.width = 0;
     pillImg.style.height = 0;
@@ -96,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.key === "Enter") {
       // Enter 키가 눌렸을 때
       let userInput = searchInput.value;
+
       page = 1;
       startPage = 1;
       noSearch.style.display = "none"; // 초기화
@@ -124,35 +129,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  /** 약 정보 클릭 시 모달 창 띄우기 */
   infoCloseBtn.addEventListener("click", () => {
     modal.style.opacity = 0;
     modal.style.zIndex = 0;
   });
 
+  /** 제약회사별 판매처 사이트로 이동*/
   goToPage.addEventListener("click", () => {
     const pageAddr = companyPage.get(modalCompany.innerHTML);
     window.open(pageAddr);
   });
 
-  // 이전 버튼 클릭 시
+  /** 이전 버튼 클릭 시  */
   prevBtn.addEventListener("click", () => {
     console.log(`startPage = ${startPage}`);
     if (startPage > 1) {
-      startPage -= numOfRows; // 페이지 범위 변경
+      startPage -= numOfPage; // 페이지 범위 변경
       renderPagination();
     }
   });
 
-  // 다음 버튼 클릭 시
+  /** 페이지 다음 버튼 클릭 시 */
   nextBtn.addEventListener("click", () => {
     console.log(`startPage = ${startPage}`);
-    if (startPage < total / numOfRows) {
-      startPage += numOfRows; // 페이지 범위 변경
+    if (startPage < total / numOfPage) {
+      startPage += numOfPage; // 페이지 범위 변경
     }
     renderPagination();
   });
 
-  /** 제약회사별 약국 찾기 페이지 */
+  /** 제약회사 판매처 Map (제약회사 이름 : 약국 찾기 페이지) */
   function initCompanyPage() {
     const companyPage = new Map();
     companyPage
@@ -188,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return companyPage;
   }
 
-  /** open api */
+  /** open api e약은요 */
   async function getData(userInput, pageNo) {
     let searchType = searchOption.value;
 
@@ -209,7 +216,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const pills = [];
     page = data.body.pageNo;
     total = data.body.totalCount;
+
     data.body.items.map((pill) => {
+      /**
+       * name: 약 이름
+       * company: 제약회사
+       * efficacy: 효능
+       * method: 복용방법
+       * image: 사진
+       * date: 등록 날짜
+       * code: 코드
+       */
       pills.push({
         name: pill.itemName,
         company: pill.entpName,
@@ -225,13 +242,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // 이름으로 오름차순 정렬
+    // 이름으로 오름차순 정렬(페이지당 적용)
     pills.sort((a, b) => {
       return a.name.localeCompare(b.name);
     });
 
     printInfo(pills);
-  }
+  } //  async function getData(userInput, pageNo)
 
   /** 약 리스트 출력 */
   function printInfo(pills) {
@@ -305,20 +322,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderPagination();
     pillContainer.appendChild(pageContainer);
-  }
+  } //  function printInfo(pills)
 
   // 페이지네이션
   function renderPagination() {
     pageList.innerHTML = ""; // 기존 페이지 버튼 삭제
     pageContainer.style.opacity = 1;
 
-    let endPage = total / numOfRows; // 현재 페이지 그룹의 마지막 페이지
-    if (total % numOfRows) {
-      endPage++;
+    let totalPages = Math.ceil(total / numOfRows); // 총 페이지 수
+    let endPage = startPage + numOfPage - 1; // 한 번에 5개의 페이지 버튼만 표시 (startPage에서 4를 더한 값)
+
+    // endPage가 총 페이지 수를 넘지 않도록 조정
+    if (endPage > totalPages) {
+      endPage = totalPages;
     }
 
-    // 페이지 범위 설정
-    endPage = Math.min(startPage + numOfRows - 1, endPage);
+    // 이전 버튼 (시작 페이지가 1보다 크면 활성화)
+    prevBtn.disabled = startPage === 1;
+
+    // 다음 버튼 (endPage가 총 페이지 수보다 작으면 활성화)
+    nextBtn.disabled = endPage === totalPages;
 
     // 페이지 버튼 생성
     for (let i = startPage; i <= endPage; i++) {
@@ -336,6 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
         getData(searchInput.value, page);
         console.log("현재 페이지:", page); // 페이지 클릭 시 페이지 값 출력
       });
+
       pageList.appendChild(pageBtn);
     }
   }

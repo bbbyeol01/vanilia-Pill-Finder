@@ -41,6 +41,7 @@ header section .logoContainer {
   min-width: 20vw;
   height: inherit;
   gap: 10px;
+  cursor: pointer;
 }
 header section .logoContainer .logo {
   display: flex;
@@ -99,10 +100,10 @@ aside .menuOpen img {
   z-index: 0;
 }
 .modal .infoContainer {
-  width: 50vw;
+  width: 60vw;
   min-width: 400px;
-  min-height: 70vh;
-  max-height: 70vh;
+  min-height: 80vh;
+  max-height: 80vh;
   background-color: white;
   border-radius: 20px;
   box-shadow: 1px 3px 15px gray;
@@ -126,9 +127,15 @@ aside .menuOpen img {
 }
 .modal .infoContainer .image {
   width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .modal .infoContainer .image img {
   width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  overflow: hidden;
 }
 .modal .infoContainer .nameContainer {
   width: 80%;
@@ -219,8 +226,8 @@ aside .menuOpen img {
   margin-top: 10vh;
   width: 50vw;
   min-width: 400px;
-  min-height: 150px;
-  height: 150px;
+  min-height: 120px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -347,7 +354,8 @@ aside .menuOpen img {
 .pillContainer .pageContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 10vh;
   width: 100%;
   height: 0px;
   opacity: 0;
@@ -386,7 +394,6 @@ aside .menuOpen img {
 
 @media (max-width: 767px) {
   .infoContainer {
-    height: 200px;
     width: 80vw;
   }
 
