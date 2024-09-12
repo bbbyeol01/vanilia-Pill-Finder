@@ -8,13 +8,6 @@ body {
     margin: 0;
 }
 
-main {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 header {
     background: rgba(255, 255, 255, 0.2);
@@ -87,6 +80,15 @@ header {
     }
 
 
+}
+
+
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 aside {

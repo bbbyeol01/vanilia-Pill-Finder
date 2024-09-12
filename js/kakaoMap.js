@@ -1,0 +1,145 @@
+document.addEventListener("DOMContentLoaded", () => {
+  let myLocation = {
+    latitude: 37.472552,
+    longitude: 126.886209,
+  };
+
+  const mapInfo = document.querySelector(".mapInfo");
+  const mapContainer = document.querySelector(".map"), // 지도를 표시할 div
+    mapOption = {
+      center: new kakao.maps.LatLng(myLocation.latitude, myLocation.longitude), // 지도의 중심좌표
+      level: 6, // 지도의 확대 레벨
+    };
+
+  // 지도를 생성합니다
+  var map = new kakao.maps.Map(mapContainer, mapOption);
+
+  // 장소 검색 객체를 생성합니다
+  var ps = new kakao.maps.services.Places();
+
+  // 내 위치 불러오기
+  function getMyLocation(callback) {
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      callback(pos.coords.latitude, pos.coords.longitude);
+    });
+  }
+
+  getMyLocation((latitude, longitude) => {
+    myLocation = {
+      latitude: latitude,
+      longitude: longitude,
+    };
+
+    console.log(myLocation);
+    // 내 위치로 지도 센터 변경, 마커 추가
+
+    // 커스텀 마커 이미지
+    const customMarkerImage = new kakao.maps.MarkerImage(
+      "images/marker-red.png", // 마커 이미지 URL
+      new kakao.maps.Size(35, 35), // 마커 이미지 크기
+      {
+        offset: new kakao.maps.Point(17, 35), // 마커의 중심점 위치
+      }
+    );
+
+    // 내 위치 마커
+    new kakao.maps.Marker({
+      position: new kakao.maps.LatLng(
+        myLocation.latitude,
+        myLocation.longitude
+      ),
+      map: map,
+      clickable: true,
+      image: customMarkerImage,
+    });
+
+    setCenter(latitude, longitude);
+
+    // 내 위치 근처 약국 검색
+    ps.keywordSearch(
+      "약국",
+      (data, status, pagination) => {
+        if (status === kakao.maps.services.Status.OK) {
+          console.log("검색 결과:", data);
+
+          // 검색 결과를 지도에 마커로 표시
+          data.forEach((place) => {
+            // 마커 이벤트 추가
+
+            addListBtn(place);
+          });
+        } else {
+          console.log("검색 실패:", status);
+        }
+      }, // callback 함수
+      {
+        location: new kakao.maps.LatLng(
+          myLocation.latitude,
+          myLocation.longitude
+        ), // 중심 위치
+        radius: 1000, // 반경 1km
+      } // 내 위치 정보
+    );
+  });
+
+  function setCenter(latitude, longitude) {
+    // 이동할 위도 경도 위치를 생성
+    var moveLatLon = new kakao.maps.LatLng(latitude, longitude);
+    // 지도 중심 이동
+    map.panTo(moveLatLon);
+  }
+
+  function addListBtn(place) {
+    const marker = new kakao.maps.Marker({
+      map: map,
+      position: new kakao.maps.LatLng(place.y, place.x),
+    });
+
+    const infowindow = new kakao.maps.InfoWindow({
+      content: `<div style="padding:5px;">${place.place_name}</div>`,
+    });
+    kakao.maps.event.addListener(marker, "mouseover", function () {
+      infowindow.open(map, marker);
+    });
+
+    kakao.maps.event.addListener(marker, "click", () => {
+      setCenter(place.y, place.x);
+    });
+
+    kakao.maps.event.addListener(marker, "mouseout", function () {
+      infowindow.close();
+    });
+
+    const spot = document.createElement("div");
+    spot.classList.add("spot");
+
+    const name = document.createElement("div");
+    name.classList.add("name");
+    name.innerHTML = place.place_name;
+    const addr = document.createElement("div");
+    addr.classList.add("addr");
+    addr.innerHTML = place.road_address_name;
+    const tel = document.createElement("div");
+    tel.classList.add("tel");
+    tel.innerHTML = place.phone;
+
+    spot.appendChild(name);
+    spot.appendChild(addr);
+    spot.appendChild(tel);
+
+    mapInfo.append(spot);
+
+    spot.addEventListener("click", () => {
+      infowindow.open(map, marker);
+      setCenter(place.y, place.x);
+      spot.style.backgroundColor = "#96b9ff";
+      spot.style.color = "white";
+    });
+
+    spot.addEventListener("mouseout", () => {
+      infowindow.close(map, marker);
+      spot.style.backgroundColor = "";
+      spot.style.color = "";
+    });
+  }
+});

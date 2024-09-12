@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const infoContainer = document.querySelector(".infoContainer");
   const infoCloseBtn = document.querySelector(".infoContainer .close");
+  const findMap = document.querySelector(".findMap");
 
   const modal = document.querySelector(".modal");
   const modalImg = document.querySelector(".infoContainer .image .pillImg");
@@ -54,6 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   logoContainer.addEventListener("click", () => {
     location.href = "index.html";
+  });
+
+  findMap.addEventListener("click", () => {
+    location.href = "map.html";
   });
 
   searchOption.addEventListener("change", (e) => {
@@ -161,38 +166,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /** 제약회사 판매처 Map (제약회사 이름 : 약국 찾기 페이지) */
   function initCompanyPage() {
-    const companyPage = new Map();
-    companyPage
-      .set(
-        "한미약품(주)",
-        "https://www.hanmi.co.kr/business/product/pharmacy/search.hm"
-      )
-      .set("동아제약(주)", "http://www.dpharm.co.kr/pharmacy/finder")
-      .set("태극제약(주)", "https://www.taiguk.co.kr/store/list.jsp")
-      .set("(주)대웅제약", "https://www.daewoong.co.kr/kr/product/pharmacy")
-      .set(
-        "제이더블유중외제약(주)",
-        "https://www.jw-pharma.co.kr/mobile/pharma/ko/product/pharmacy_search.jsp"
-      )
-      .set("(주)종근당", "https://www.ckdpharm.com/searchPharmacy.do")
-      .set("(주)유유제약", "https://www.yuyu.co.kr/en/productInfo/pharmacy.do")
-      .set(
-        "(유)한풍제약",
-        "https://www.hanpoong.co.kr/products/find-sales-pharmacy"
-      )
-      .set("광동제약(주)", "https://www.ekdp.com/inc/search_phamacy.do")
-      .set("(주)유한양행", "https://www.yuhan.co.kr/Products/Pharmacy/")
-      .set("대원제약(주)", "https://www.daewonpharm.com/products/sub03_01.jsp")
-      .set("일동제약(주)", "https://mobile.ildong.com/kor/pharm/list.id")
-      .set("현대약품(주)", "http://www.hyundaipharm.co.kr/store/result.jsp")
-      .set(
-        "동화약품(주)",
-        "https://www.dong-wha.co.kr/product/pharm_search1.asp"
-      )
-      .set("(주)보령", "https://pharm.boryung.co.kr/product/search_pharmacy.do")
-      .set("(주)녹십자", "https://m.gcbiopharma.com/product/store.do");
+    const companyData = {
+      "한미약품(주)":
+        "https://www.hanmi.co.kr/business/product/pharmacy/search.hm",
+      "동아제약(주)": "http://www.dpharm.co.kr/pharmacy/finder",
+      "태극제약(주)": "https://www.taiguk.co.kr/store/list.jsp",
+      "(주)대웅제약": "https://www.daewoong.co.kr/kr/product/pharmacy",
+      "제이더블유중외제약(주)":
+        "https://www.jw-pharma.co.kr/mobile/pharma/ko/product/pharmacy_search.jsp",
+      "(주)종근당": "https://www.ckdpharm.com/searchPharmacy.do",
+      "(주)유유제약": "https://www.yuyu.co.kr/en/productInfo/pharmacy.do",
+      "(유)한풍제약": "https://www.hanpoong.co.kr/products/find-sales-pharmacy",
+      "광동제약(주)": "https://www.ekdp.com/inc/search_phamacy.do",
+      "(주)유한양행": "https://www.yuhan.co.kr/Products/Pharmacy/",
+      "대원제약(주)": "https://www.daewonpharm.com/products/sub03_01.jsp",
+      "일동제약(주)": "https://mobile.ildong.com/kor/pharm/list.id",
+      "현대약품(주)": "http://www.hyundaipharm.co.kr/store/result.jsp",
+      "동화약품(주)": "https://www.dong-wha.co.kr/product/pharm_search1.asp",
+      "(주)보령": "https://pharm.boryung.co.kr/product/search_pharmacy.do",
+      "(주)녹십자": "https://m.gcbiopharma.com/product/store.do",
+    };
 
-    return companyPage;
+    // Map으로 변환
+    return new Map(Object.entries(companyData));
   }
 
   /** open api e약은요 */
@@ -291,6 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
       image.src = pill.image
         ? "/images/loading-icon-background.gif"
         : image.src;
+      image.loading = "lazy";
 
       // 이미지가 로딩되기 전 null-img를 보여주고, 실제 이미지가 로딩된 후 변경
       const tempImg = new Image(); // 임시 이미지 객체 생성
