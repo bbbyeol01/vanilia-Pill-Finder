@@ -65,6 +65,7 @@ main {
   width: 100%;
 }
 main .mapContainer {
+  border-radius: 15px;
   width: 70%;
   display: flex;
   flex-direction: column;
@@ -79,6 +80,7 @@ main .mapContainer .mapWrapper {
   display: flex;
 }
 main .mapContainer .mapWrapper .map {
+  border-radius: 15px;
   min-width: 65%;
   background-color: #eee;
 }
@@ -99,7 +101,7 @@ main .mapContainer .mapWrapper .mapInfo .spot {
   border-radius: 15px;
 }
 main .mapContainer .mapWrapper .mapInfo .spot:hover {
-  background-color: #96b9ff;
+  outline: solid 2px #96b9ff;
 }
 main .mapContainer .mapWrapper .mapInfo * {
   display: flex;

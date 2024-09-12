@@ -14,9 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // 현재 페이지 그룹의 시작 페이지
   let startPage = 1;
 
-  const logoContainer = document.querySelector(".logoContainer");
-  const pillFinder = document.querySelector(".pillFinder");
-
   const searchBtn = document.querySelector(".searchBtn");
   const searchInput = document.querySelector(".searchInput");
   const pillContainer = document.querySelector(".pillContainer");
@@ -30,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const infoContainer = document.querySelector(".infoContainer");
   const infoCloseBtn = document.querySelector(".infoContainer .close");
-  const findMap = document.querySelector(".findMap");
 
   const modal = document.querySelector(".modal");
   const modalImg = document.querySelector(".infoContainer .image .pillImg");
@@ -49,17 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pillType = document.createElement("div");
   pillType.classList.add("pillType");
 
-  pillFinder.addEventListener("click", () => {
-    location.href = "index.html";
-  });
 
-  logoContainer.addEventListener("click", () => {
-    location.href = "index.html";
-  });
-
-  findMap.addEventListener("click", () => {
-    location.href = "map.html";
-  });
 
   searchOption.addEventListener("change", (e) => {
     console.log(e.target.value);

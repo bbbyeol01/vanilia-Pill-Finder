@@ -98,17 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const infowindow = new kakao.maps.InfoWindow({
       content: `<div style="padding:5px;">${place.place_name}</div>`,
     });
-    kakao.maps.event.addListener(marker, "mouseover", function () {
-      infowindow.open(map, marker);
-    });
-
-    kakao.maps.event.addListener(marker, "click", () => {
-      setCenter(place.y, place.x);
-    });
-
-    kakao.maps.event.addListener(marker, "mouseout", function () {
-      infowindow.close();
-    });
 
     const spot = document.createElement("div");
     spot.classList.add("spot");
@@ -121,25 +110,55 @@ document.addEventListener("DOMContentLoaded", () => {
     addr.innerHTML = place.road_address_name;
     const tel = document.createElement("div");
     tel.classList.add("tel");
-    tel.innerHTML = place.phone;
+    tel.innerHTML = "☎️ " + place.phone;
 
     spot.appendChild(name);
     spot.appendChild(addr);
     spot.appendChild(tel);
-
-    mapInfo.append(spot);
+    // spot.classList.add(place.id);
+    spot.setAttribute("data-id", place.id);
 
     spot.addEventListener("click", () => {
       infowindow.open(map, marker);
       setCenter(place.y, place.x);
       spot.style.backgroundColor = "#96b9ff";
+      spot.style.outline = "";
       spot.style.color = "white";
     });
 
-    spot.addEventListener("mouseout", () => {
+    spot.addEventListener("mouseleave", () => {
       infowindow.close(map, marker);
       spot.style.backgroundColor = "";
       spot.style.color = "";
+    });
+
+    mapInfo.append(spot);
+
+    kakao.maps.event.addListener(marker, "mouseover", function () {
+      infowindow.open(map, marker);
+      spot.style.outline = "solid 2px #96b9ff";
+    });
+
+    kakao.maps.event.addListener(marker, "click", () => {
+      spot.style.backgroundColor = "#96b9ff";
+      spot.style.outline = "";
+      spot.style.color = "white";
+
+      const spotDiv = document.querySelector(`[data-id="${place.id}"]`);
+      if (spotDiv) {
+        spotDiv.scrollIntoView({
+          behavior: "smooth", // 스크롤 애니메이션 (부드럽게)
+          block: "start", // 요소의 상단으로 스크롤 정렬
+          inline: "nearest", // 수평 위치도 맞춤
+        });
+      }
+    });
+
+    kakao.maps.event.addListener(marker, "mouseout", function () {
+      spot.style.outline = "";
+      spot.style.backgroundColor = "";
+      spot.style.color = "";
+      infowindow.close();
     });
   }
 });
