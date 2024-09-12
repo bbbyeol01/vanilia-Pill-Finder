@@ -84,8 +84,10 @@ main {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 50px;
-        margin-top: 100px;
+        // padding: 50px;
+        margin-top: 15vh;
+
+
 
 
 
@@ -93,41 +95,99 @@ main {
             width: 100%;
             height: 70vh;
             display: flex;
+            position: relative;
+
+
 
             .map {
                 border-radius: 15px;
-
-                min-width: 65%;
+                min-width: 70%;
                 background-color: #eee;
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-end;
+
+
+                .goToMyLocation {
+                    position: absolute;
+                    width: 50px;
+                    height: 50px;
+                    background-color: white;
+                    margin: 20px;
+                    border-radius: 50px;
+                    z-index: 99999999;
+                    box-shadow: 5px 5px 10px gray;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+
+                    img {
+                        width: 50%;
+                        height: 50%;
+                    }
+                }
             }
 
             .mapInfo {
                 overflow: scroll;
-                padding: 30px;
                 display: flex;
                 flex-direction: column;
+                align-items: center;
+                min-width: 30%;
+                min-height: 30vh;
                 gap: 20px;
-
-                .name {
-                    font-size: 14pt;
-                    font-weight: bold;
-                }
+                padding: 10px 0 10px 0;
 
                 .spot {
-                    padding: 20px;
+                    width: 80%;
+                    display: flex;
+                    align-items: center;
                     cursor: pointer;
                     border-radius: 15px;
+                    gap: 20px;
+                    padding: 20px;
+
+
+                    .spotInfo {
+                        width: 80%;
+
+                        .name {
+                            font-size: 14pt;
+                            font-weight: bold;
+                        }
+
+                    }
+
+
+                    .goToSpot {
+                        width: 50px;
+                        min-width: 50px;
+                        background: none;
+                        border: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .spotNavigate {
+                            padding: 10px;
+                            background-color: #96b9ff;
+                            border-radius: 70px;
+                            width: 70%;
+                            height: 70%;
+                            cursor: pointer;
+                        }
+                    }
+
+
                 }
+
 
                 .spot:hover {
                     outline: solid 2px #96b9ff;
                 }
 
-                * {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 5px;
-                }
+
             }
 
         }
@@ -148,6 +208,8 @@ main {
 
 // 가로모드 모바일 디바이스 (가로 해상도가 768px 보다 작은 화면에 적용) 
 @media (max-width: 767px) {
+
+
     .infoContainer {
         width: 80vw;
     }
@@ -159,7 +221,10 @@ main {
 }
 
 // 태블릿 디바이스 (가로 해상도가 992px 보다 작은 화면에 적용) 
-@media (max-width: 991px) {
+@media (max-width: 991px) {}
+
+// 데스크탑 (가로 해상도가 1200px 보다 작은 화면에 적용)
+@media (max-width: 1199px) {
     .mapWrapper {
         width: 100vw;
         height: 100vh;
@@ -167,16 +232,20 @@ main {
         flex-direction: column;
     }
 
+
     .map {
         min-width: 100%;
+        min-height: 40vh;
         height: 100%;
         background-color: #eee;
+        margin-bottom: 3vh;
     }
 
     .mapInfo {
-        height: 40vh;
-    }
-}
+        padding-top: 5vh;
+        min-height: 25vh;
 
-// 데스크탑 (가로 해상도가 1200px 보다 작은 화면에 적용)
-@media (max-width: 1199px) {}
+    }
+
+
+}

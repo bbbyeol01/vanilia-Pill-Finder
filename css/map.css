@@ -71,42 +71,85 @@ main .mapContainer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 50px;
-  margin-top: 100px;
+  margin-top: 15vh;
 }
 main .mapContainer .mapWrapper {
   width: 100%;
   height: 70vh;
   display: flex;
+  position: relative;
 }
 main .mapContainer .mapWrapper .map {
   border-radius: 15px;
-  min-width: 65%;
+  min-width: 70%;
   background-color: #eee;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+main .mapContainer .mapWrapper .map .goToMyLocation {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  margin: 20px;
+  border-radius: 50px;
+  z-index: 99999999;
+  box-shadow: 5px 5px 10px gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+main .mapContainer .mapWrapper .map .goToMyLocation img {
+  width: 50%;
+  height: 50%;
 }
 main .mapContainer .mapWrapper .mapInfo {
   overflow: scroll;
-  padding: 30px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-width: 30%;
+  min-height: 30vh;
   gap: 20px;
+  padding: 10px 0 10px 0;
 }
-main .mapContainer .mapWrapper .mapInfo .name {
+main .mapContainer .mapWrapper .mapInfo .spot {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 15px;
+  gap: 20px;
+  padding: 20px;
+}
+main .mapContainer .mapWrapper .mapInfo .spot .spotInfo {
+  width: 80%;
+}
+main .mapContainer .mapWrapper .mapInfo .spot .spotInfo .name {
   font-size: 14pt;
   font-weight: bold;
 }
-main .mapContainer .mapWrapper .mapInfo .spot {
-  padding: 20px;
+main .mapContainer .mapWrapper .mapInfo .spot .goToSpot {
+  width: 50px;
+  min-width: 50px;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main .mapContainer .mapWrapper .mapInfo .spot .goToSpot .spotNavigate {
+  padding: 10px;
+  background-color: #96b9ff;
+  border-radius: 70px;
+  width: 70%;
+  height: 70%;
   cursor: pointer;
-  border-radius: 15px;
 }
 main .mapContainer .mapWrapper .mapInfo .spot:hover {
   outline: solid 2px #96b9ff;
-}
-main .mapContainer .mapWrapper .mapInfo * {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
 }
 
 @media (max-width: 767px) {
@@ -118,7 +161,7 @@ main .mapContainer .mapWrapper .mapInfo * {
     visibility: hidden;
   }
 }
-@media (max-width: 991px) {
+@media (max-width: 1199px) {
   .mapWrapper {
     width: 100vw;
     height: 100vh;
@@ -128,11 +171,14 @@ main .mapContainer .mapWrapper .mapInfo * {
 
   .map {
     min-width: 100%;
+    min-height: 40vh;
     height: 100%;
     background-color: #eee;
+    margin-bottom: 3vh;
   }
 
   .mapInfo {
-    height: 40vh;
+    padding-top: 5vh;
+    min-height: 25vh;
   }
 }

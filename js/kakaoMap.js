@@ -5,11 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const mapInfo = document.querySelector(".mapInfo");
-  const mapContainer = document.querySelector(".map"), // 지도를 표시할 div
-    mapOption = {
-      center: new kakao.maps.LatLng(myLocation.latitude, myLocation.longitude), // 지도의 중심좌표
-      level: 6, // 지도의 확대 레벨
-    };
+  const mapContainer = document.querySelector(".map"); // 지도를 표시할 div
+  const goToMyLocation = document.querySelector(".goToMyLocation");
+  const goToSpotImg = document.querySelector(".goToSpot img");
+
+  const mapOption = {
+    center: new kakao.maps.LatLng(myLocation.latitude, myLocation.longitude), // 지도의 중심좌표
+    level: 6, // 지도의 확대 레벨
+  };
 
   // 지도를 생성합니다
   var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -17,10 +20,119 @@ document.addEventListener("DOMContentLoaded", () => {
   // 장소 검색 객체를 생성합니다
   var ps = new kakao.maps.services.Places();
 
-  // 내 위치 불러오기
+  goToMyLocation.addEventListener("click", () => {
+    getMyLocation((latitude, longitude) => {
+      setCenter(latitude, longitude);
+    });
+  });
+
+  // 내 위치 불러오기 => callback(latitude, longitude)
   function getMyLocation(callback) {
     navigator.geolocation.getCurrentPosition(function (pos) {
       callback(pos.coords.latitude, pos.coords.longitude);
+    });
+  }
+
+  /** 지도 센터 변경 */
+  function setCenter(latitude, longitude) {
+    // 이동할 위도 경도 위치를 생성
+    var moveLatLon = new kakao.maps.LatLng(latitude, longitude);
+    // 지도 중심 이동
+    map.panTo(moveLatLon);
+  }
+
+  /** 주소 목록 추가 */
+  function addListBtn(place) {
+    const marker = new kakao.maps.Marker({
+      map: map,
+      position: new kakao.maps.LatLng(place.y, place.x),
+    });
+
+    const infowindow = new kakao.maps.InfoWindow({
+      content: `<div style="padding:5px;">${place.place_name}</div>`,
+    });
+
+    const spot = document.createElement("div");
+    const spotInfo = document.createElement("div");
+    const goToSpot = document.createElement("button");
+    const spotNavigate = document.createElement("img");
+    spotNavigate.src = "images/navigation-icon.png";
+    spotNavigate.classList.add("spotNavigate");
+    goToSpot.appendChild(spotNavigate);
+
+    spot.classList.add("spot");
+    spotInfo.classList.add("spotInfo");
+    goToSpot.classList.add("goToSpot");
+
+    const name = document.createElement("div");
+    name.classList.add("name");
+    name.innerHTML = place.place_name;
+    const addr = document.createElement("div");
+    addr.classList.add("addr");
+    addr.innerHTML = place.road_address_name;
+    const tel = document.createElement("div");
+    tel.classList.add("tel");
+    tel.innerHTML = "☎️ " + place.phone;
+
+    spotInfo.appendChild(name);
+    spotInfo.appendChild(addr);
+    spotInfo.appendChild(tel);
+
+    spot.appendChild(spotInfo);
+    spot.appendChild(goToSpot);
+
+    // spot.classList.add(place.id);
+    spot.setAttribute("data-id", place.id);
+
+    spot.addEventListener("click", () => {
+      infowindow.open(map, marker);
+      setCenter(place.y, place.x);
+      spot.style.backgroundColor = "#96b9ff";
+      spot.style.outline = "";
+      spot.style.color = "white";
+      spotNavigate.style.backgroundColor = "white";
+      spotNavigate.src = "images/navigation-icon-color.png";
+    });
+
+    spot.addEventListener("mouseleave", () => {
+      infowindow.close(map, marker);
+      spot.style.backgroundColor = "";
+      spot.style.color = "";
+      spotNavigate.style.backgroundColor = "#96b9ff";
+      spotNavigate.src = "images/navigation-icon.png";
+    });
+
+    spotNavigate.addEventListener("click", () => {
+      window.open(place.place_url);
+    });
+
+    mapInfo.append(spot);
+
+    kakao.maps.event.addListener(marker, "mouseover", function () {
+      infowindow.open(map, marker);
+      spot.style.outline = "solid 2px #96b9ff";
+    });
+
+    kakao.maps.event.addListener(marker, "click", () => {
+      spot.style.backgroundColor = "#96b9ff";
+      spot.style.outline = "";
+      spot.style.color = "white";
+
+      const spotDiv = document.querySelector(`[data-id="${place.id}"]`);
+      if (spotDiv) {
+        spotDiv.scrollIntoView({
+          behavior: "smooth", // 스크롤 애니메이션 (부드럽게)
+          block: "start", // 요소의 상단으로 스크롤 정렬
+          inline: "nearest", // 수평 위치도 맞춤
+        });
+      }
+    });
+
+    kakao.maps.event.addListener(marker, "mouseout", function () {
+      spot.style.outline = "";
+      spot.style.backgroundColor = "";
+      spot.style.color = "";
+      infowindow.close();
     });
   }
 
@@ -41,6 +153,10 @@ document.addEventListener("DOMContentLoaded", () => {
         offset: new kakao.maps.Point(17, 35), // 마커의 중심점 위치
       }
     );
+
+    // const infowindow = new kakao.maps.InfoWindow({
+    //   content: `<div style="padding:5px;">${"내 위치"}</div>`,
+    // });
 
     // 내 위치 마커
     new kakao.maps.Marker({
@@ -81,84 +197,4 @@ document.addEventListener("DOMContentLoaded", () => {
       } // 내 위치 정보
     );
   });
-
-  function setCenter(latitude, longitude) {
-    // 이동할 위도 경도 위치를 생성
-    var moveLatLon = new kakao.maps.LatLng(latitude, longitude);
-    // 지도 중심 이동
-    map.panTo(moveLatLon);
-  }
-
-  function addListBtn(place) {
-    const marker = new kakao.maps.Marker({
-      map: map,
-      position: new kakao.maps.LatLng(place.y, place.x),
-    });
-
-    const infowindow = new kakao.maps.InfoWindow({
-      content: `<div style="padding:5px;">${place.place_name}</div>`,
-    });
-
-    const spot = document.createElement("div");
-    spot.classList.add("spot");
-
-    const name = document.createElement("div");
-    name.classList.add("name");
-    name.innerHTML = place.place_name;
-    const addr = document.createElement("div");
-    addr.classList.add("addr");
-    addr.innerHTML = place.road_address_name;
-    const tel = document.createElement("div");
-    tel.classList.add("tel");
-    tel.innerHTML = "☎️ " + place.phone;
-
-    spot.appendChild(name);
-    spot.appendChild(addr);
-    spot.appendChild(tel);
-    // spot.classList.add(place.id);
-    spot.setAttribute("data-id", place.id);
-
-    spot.addEventListener("click", () => {
-      infowindow.open(map, marker);
-      setCenter(place.y, place.x);
-      spot.style.backgroundColor = "#96b9ff";
-      spot.style.outline = "";
-      spot.style.color = "white";
-    });
-
-    spot.addEventListener("mouseleave", () => {
-      infowindow.close(map, marker);
-      spot.style.backgroundColor = "";
-      spot.style.color = "";
-    });
-
-    mapInfo.append(spot);
-
-    kakao.maps.event.addListener(marker, "mouseover", function () {
-      infowindow.open(map, marker);
-      spot.style.outline = "solid 2px #96b9ff";
-    });
-
-    kakao.maps.event.addListener(marker, "click", () => {
-      spot.style.backgroundColor = "#96b9ff";
-      spot.style.outline = "";
-      spot.style.color = "white";
-
-      const spotDiv = document.querySelector(`[data-id="${place.id}"]`);
-      if (spotDiv) {
-        spotDiv.scrollIntoView({
-          behavior: "smooth", // 스크롤 애니메이션 (부드럽게)
-          block: "start", // 요소의 상단으로 스크롤 정렬
-          inline: "nearest", // 수평 위치도 맞춤
-        });
-      }
-    });
-
-    kakao.maps.event.addListener(marker, "mouseout", function () {
-      spot.style.outline = "";
-      spot.style.backgroundColor = "";
-      spot.style.color = "";
-      infowindow.close();
-    });
-  }
 });
