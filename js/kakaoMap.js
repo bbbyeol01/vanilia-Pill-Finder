@@ -7,7 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const mapInfo = document.querySelector(".mapInfo");
   const mapContainer = document.querySelector(".map"); // 지도를 표시할 div
   const goToMyLocation = document.querySelector(".goToMyLocation");
-  const goToSpotImg = document.querySelector(".goToSpot img");
+  const mapLoading = document.querySelector(".mapLoading");
+
+  mapLoading.style.visibility = "hidden";
 
   const mapOption = {
     center: new kakao.maps.LatLng(myLocation.latitude, myLocation.longitude), // 지도의 중심좌표
@@ -21,9 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   var ps = new kakao.maps.services.Places();
 
   goToMyLocation.addEventListener("click", () => {
-    getMyLocation((latitude, longitude) => {
-      setCenter(latitude, longitude);
-    });
+    setCenter(myLocation.latitude, myLocation.longitude);
   });
 
   // 내 위치 불러오기 => callback(latitude, longitude)
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const infowindow = new kakao.maps.InfoWindow({
-      content: `<div style="padding:5px;">${place.place_name}</div>`,
+      content: `<div style="padding:15px;"><div style="text-align:center;">${place.place_name}</div></div>`,
     });
 
     const spot = document.createElement("div");
@@ -137,6 +137,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   getMyLocation((latitude, longitude) => {
+    // 위치를 받아오는 동안 로딩창
+    mapLoading.style.visibility = "visible";
+
     myLocation = {
       latitude: latitude,
       longitude: longitude,
@@ -183,6 +186,9 @@ document.addEventListener("DOMContentLoaded", () => {
             // 마커 이벤트 추가
 
             addListBtn(place);
+
+            // 로딩창 지우기
+            mapLoading.style.visibility = "hidden";
           });
         } else {
           console.log("검색 실패:", status);

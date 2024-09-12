@@ -300,6 +300,7 @@ aside {
 
         input {
             width: 70%;
+            background-color: transparent;
             border: none;
             border-radius: inherit;
             outline: none;
@@ -319,6 +320,7 @@ aside {
             margin-right: 10px;
             border: none;
             background-color: transparent;
+            cursor: pointer;
         }
 
         img {
@@ -327,6 +329,7 @@ aside {
         }
 
         select {
+            background-color: transparent;
             border: none;
             border-radius: inherit;
             outline: none;

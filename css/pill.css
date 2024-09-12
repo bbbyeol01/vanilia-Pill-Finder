@@ -242,6 +242,7 @@ aside .menuOpen img {
 }
 .searchContainer .search input {
   width: 70%;
+  background-color: transparent;
   border: none;
   border-radius: inherit;
   outline: none;
@@ -259,12 +260,14 @@ aside .menuOpen img {
   margin-right: 10px;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 .searchContainer .search img {
   width: 25px;
   height: 25px;
 }
 .searchContainer .search select {
+  background-color: transparent;
   border: none;
   border-radius: inherit;
   outline: none;
