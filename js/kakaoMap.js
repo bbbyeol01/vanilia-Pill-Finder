@@ -62,17 +62,30 @@ document.addEventListener("DOMContentLoaded", () => {
     spotInfo.classList.add("spotInfo");
     goToSpot.classList.add("goToSpot");
 
+    const nameContainer = document.createElement("div");
+    nameContainer.classList.add("nameContainer");
+
     const name = document.createElement("div");
     name.classList.add("name");
     name.innerHTML = place.place_name;
+
+    const distance = document.createElement("div");
+    distance.classList.add("distance");
+    distance.innerHTML = place.distance + "m";
+
+    nameContainer.appendChild(name);
+    nameContainer.appendChild(distance);
+
     const addr = document.createElement("div");
     addr.classList.add("addr");
     addr.innerHTML = place.road_address_name;
+
     const tel = document.createElement("div");
     tel.classList.add("tel");
     tel.innerHTML = "☎️ " + place.phone;
 
-    spotInfo.appendChild(name);
+    // spotInfo.appendChild(name);
+    spotInfo.appendChild(nameContainer);
     spotInfo.appendChild(addr);
     spotInfo.appendChild(tel);
 

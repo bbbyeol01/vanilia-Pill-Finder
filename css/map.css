@@ -149,7 +149,12 @@ main .mapContainer .mapWrapper .mapInfo .spot .spotInfo {
   flex-direction: column;
   gap: 5px;
 }
-main .mapContainer .mapWrapper .mapInfo .spot .spotInfo .name {
+main .mapContainer .mapWrapper .mapInfo .spot .spotInfo .nameContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+main .mapContainer .mapWrapper .mapInfo .spot .spotInfo .nameContainer .name {
   font-size: 14pt;
   font-weight: bold;
 }

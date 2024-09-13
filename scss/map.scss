@@ -177,10 +177,17 @@ main {
                         flex-direction: column;
                         gap: 5px;
 
-                        .name {
-                            font-size: 14pt;
-                            font-weight: bold;
+                        .nameContainer {
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+
+                            .name {
+                                font-size: 14pt;
+                                font-weight: bold;
+                            }
                         }
+
 
                     }
 
