@@ -178,6 +178,24 @@ main .mapContainer .mapWrapper .mapInfo .spot .goToSpot .spotNavigate {
 main .mapContainer .mapWrapper .mapInfo .spot:hover {
   outline: solid 2px #96b9ff;
 }
+main .mapContainer .mapWrapper .mapInfo .moreMarker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main .mapContainer .mapWrapper .mapInfo .moreMarker .moreBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 50px;
+  border: none;
+  background-color: transparent;
+  gap: 5px;
+}
+main .mapContainer .mapWrapper .mapInfo .moreMarker .moreBtn img {
+  height: 30%;
+}
 
 @media (max-width: 767px) {
   .infoContainer {

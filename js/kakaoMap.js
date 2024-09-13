@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     longitude: 126.886209,
   };
 
+  let myradius = 3;
+  let pharmacyPagination = null;
+
   const mapInfo = document.querySelector(".mapInfo");
   const mapContainer = document.querySelector(".map"); // 지도를 표시할 div
   const goToMyLocation = document.querySelector(".goToMyLocation");
@@ -71,7 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const distance = document.createElement("div");
     distance.classList.add("distance");
-    distance.innerHTML = place.distance + "m";
+    distance.innerHTML =
+      place.distance < 1000
+        ? place.distance + "m"
+        : place.distance / 1000 + "km";
 
     nameContainer.appendChild(name);
     nameContainer.appendChild(distance);
@@ -148,9 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   getMyLocation((latitude, longitude) => {
-    // 위치를 받아오는 동안 로딩창
-    mapLoading.style.visibility = "visible";
-
     // 받아온 위치로 내 위치 재설정
     myLocation = {
       latitude: latitude,
@@ -181,35 +184,76 @@ document.addEventListener("DOMContentLoaded", () => {
     setCenter(latitude, longitude);
 
     // 장소 검색 객체 생성
-    const ps = new kakao.maps.services.Places();
-
-    // 내 위치 근처 약국 검색
-    ps.keywordSearch(
-      // keywordSearch(callback(data,status, pagination), locationInfo)
-      "약국",
-      (data, status, pagination) => {
-        if (status === kakao.maps.services.Status.OK) {
-          console.log("검색 결과:", data);
-
-          // 검색 결과를 지도에 마커로 표시
-          data.forEach((place) => {
-            // 목록 추가
-            addListBtn(place);
-
-            // 로딩창 지우기
-            mapLoading.style.visibility = "hidden";
-          }); // data.forEach((place)
-        } else {
-          console.log("검색 실패:", status);
-        }
-      }, // callback 함수
-      {
-        location: new kakao.maps.LatLng(
-          myLocation.latitude,
-          myLocation.longitude
-        ), // 중심 위치
-        radius: 1000, // 반경 1km
-      } // 내 위치 정보
-    ); //ps.keywordSearch(
   }); // getMyLocation((latitude, longitude) => {
+
+  const ps = new kakao.maps.services.Places();
+
+  // 내 위치 근처 약국 검색
+  ps.keywordSearch(
+    // keywordSearch(callback(data,status, pagination), locationInfo)
+    "약국",
+    (data, status, pagination) => {
+      // 위치를 받아오는 동안 로딩창
+      mapLoading.style.visibility = "visible";
+
+      if (status === kakao.maps.services.Status.OK) {
+        console.log("검색 결과:", data);
+
+        pharmacyPagination = pagination;
+
+        // 검색 결과를 지도에 마커로 표시
+        data.forEach((place) => {
+          // 목록 추가
+          addListBtn(place);
+
+          // 로딩창 지우기
+          mapLoading.style.visibility = "hidden";
+        }); // data.forEach((place)
+      } else {
+        console.log("검색 실패:", status);
+      }
+
+      const moreMarker = document.createElement("div");
+      moreMarker.classList.add("moreMarker");
+
+      const moreBtn = document.createElement("button");
+      moreBtn.classList.add("moreBtn");
+      moreBtn.innerHTML = "더보기";
+
+      const moreImg = document.createElement("img");
+      moreImg.src = "images/more-icon.png";
+
+      moreBtn.append(moreImg);
+      moreMarker.append(moreBtn);
+
+      mapInfo.append(moreMarker);
+
+      moreBtn.addEventListener("click", () => {
+        nextPharmacyPage(pharmacyPagination);
+      });
+
+      if (!pagination.hasNextPage) {
+        document.querySelector(".moreBtn").remove();
+      }
+    }, // callback 함수
+    {
+      location: new kakao.maps.LatLng(
+        myLocation.latitude,
+        myLocation.longitude
+      ), // 중심 위치
+      radius: myradius * 1000, // 반경 1km
+    } // 내 위치 정보
+  ); //ps.keywordSearch(
+
+  function nextPharmacyPage(pagination) {
+    if (!pagination) {
+      return;
+    }
+
+    if (pagination.hasNextPage) {
+      //호출만으로 콜백이 다시 실행됨
+      document.querySelector(".moreBtn").remove();
+      pagination.nextPage();
+    }
+  }
 }); // document.addEventListener("DOMContentLoaded", () =>

@@ -219,6 +219,27 @@ main {
                     outline: solid 2px #96b9ff;
                 }
 
+                .moreMarker {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .moreBtn {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100px;
+                        height: 50px;
+                        border: none;
+                        background-color: transparent;
+                        gap: 5px;
+
+                        img {
+                            height: 30%;
+                        }
+                    }
+                }
+
 
             }
 
