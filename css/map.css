@@ -1,3 +1,4 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 html,
 body {
   padding: 0;
@@ -5,7 +6,7 @@ body {
 }
 
 * {
-  font-family: Pretendard;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
 }
 
 header {
@@ -83,6 +84,7 @@ main .mapContainer .mapLoading {
   display: flex;
   justify-content: center;
   align-items: center;
+  visibility: hidden;
 }
 main .mapContainer .mapLoading img {
   height: 10%;
@@ -100,6 +102,9 @@ main .mapContainer .mapWrapper .map {
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
+}
+main .mapContainer .mapWrapper .map .kakaoControl {
+  margin: 10px 0 0 10px;
 }
 main .mapContainer .mapWrapper .map .goToMyLocation {
   position: absolute;
@@ -140,6 +145,9 @@ main .mapContainer .mapWrapper .mapInfo .spot {
 }
 main .mapContainer .mapWrapper .mapInfo .spot .spotInfo {
   width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 main .mapContainer .mapWrapper .mapInfo .spot .spotInfo .name {
   font-size: 14pt;

@@ -9,24 +9,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const goToMyLocation = document.querySelector(".goToMyLocation");
   const mapLoading = document.querySelector(".mapLoading");
 
-  mapLoading.style.visibility = "hidden";
-
   const mapOption = {
     center: new kakao.maps.LatLng(myLocation.latitude, myLocation.longitude), // 지도의 중심좌표
     level: 6, // 지도의 확대 레벨
   };
 
-  // 지도를 생성합니다
-  var map = new kakao.maps.Map(mapContainer, mapOption);
+  // 지도 생성
+  const map = new kakao.maps.Map(mapContainer, mapOption);
 
-  // 장소 검색 객체를 생성합니다
-  var ps = new kakao.maps.services.Places();
+  const zoomControl = new kakao.maps.ZoomControl();
+  map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
 
   goToMyLocation.addEventListener("click", () => {
     setCenter(myLocation.latitude, myLocation.longitude);
   });
 
-  // 내 위치 불러오기 => callback(latitude, longitude)
+  /** 내 위치 불러오기 => callback(latitude, longitude) */
   function getMyLocation(callback) {
     navigator.geolocation.getCurrentPosition(function (pos) {
       callback(pos.coords.latitude, pos.coords.longitude);
@@ -140,15 +138,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // 위치를 받아오는 동안 로딩창
     mapLoading.style.visibility = "visible";
 
+    // 받아온 위치로 내 위치 재설정
     myLocation = {
       latitude: latitude,
       longitude: longitude,
     };
 
-    console.log(myLocation);
-    // 내 위치로 지도 센터 변경, 마커 추가
-
-    // 커스텀 마커 이미지
+    // 커스텀 마커 만들기
     const customMarkerImage = new kakao.maps.MarkerImage(
       "images/marker-red.png", // 마커 이미지 URL
       new kakao.maps.Size(35, 35), // 마커 이미지 크기
@@ -157,11 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-    // const infowindow = new kakao.maps.InfoWindow({
-    //   content: `<div style="padding:5px;">${"내 위치"}</div>`,
-    // });
-
-    // 내 위치 마커
+    // 내 위치 마커 추가
     new kakao.maps.Marker({
       position: new kakao.maps.LatLng(
         myLocation.latitude,
@@ -172,10 +164,15 @@ document.addEventListener("DOMContentLoaded", () => {
       image: customMarkerImage,
     });
 
+    // 내 위치로 지도 센터 변경
     setCenter(latitude, longitude);
+
+    // 장소 검색 객체 생성
+    const ps = new kakao.maps.services.Places();
 
     // 내 위치 근처 약국 검색
     ps.keywordSearch(
+      // keywordSearch(callback(data,status, pagination), locationInfo)
       "약국",
       (data, status, pagination) => {
         if (status === kakao.maps.services.Status.OK) {
@@ -183,13 +180,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // 검색 결과를 지도에 마커로 표시
           data.forEach((place) => {
-            // 마커 이벤트 추가
-
+            // 목록 추가
             addListBtn(place);
 
             // 로딩창 지우기
             mapLoading.style.visibility = "hidden";
-          });
+          }); // data.forEach((place)
         } else {
           console.log("검색 실패:", status);
         }
@@ -201,6 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ), // 중심 위치
         radius: 1000, // 반경 1km
       } // 내 위치 정보
-    );
-  });
-});
+    ); //ps.keywordSearch(
+  }); // getMyLocation((latitude, longitude) => {
+}); // document.addEventListener("DOMContentLoaded", () =>
