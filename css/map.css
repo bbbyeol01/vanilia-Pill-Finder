@@ -134,6 +134,9 @@ main .mapContainer .mapWrapper .mapInfo {
   gap: 20px;
   padding: 10px 0 10px 0;
 }
+main .mapContainer .mapWrapper .mapInfo .count {
+  margin: 20px 0 10px 0;
+}
 main .mapContainer .mapWrapper .mapInfo .spot {
   width: 80%;
   display: flex;

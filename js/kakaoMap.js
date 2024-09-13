@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       content: `<div style="padding:15px;"><div style="text-align:center;">${place.place_name}</div></div>`,
     });
 
+    // 지도 목록 추가
     const spot = document.createElement("div");
     const spotInfo = document.createElement("div");
     const goToSpot = document.createElement("button");
@@ -77,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     distance.innerHTML =
       place.distance < 1000
         ? place.distance + "m"
-        : place.distance / 1000 + "km";
+        : (place.distance / 1000).toFixed(2) + "km";
 
     nameContainer.appendChild(name);
     nameContainer.appendChild(distance);
@@ -90,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     tel.classList.add("tel");
     tel.innerHTML = "☎️ " + place.phone;
 
-    // spotInfo.appendChild(name);
     spotInfo.appendChild(nameContainer);
     spotInfo.appendChild(addr);
     spotInfo.appendChild(tel);
@@ -98,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
     spot.appendChild(spotInfo);
     spot.appendChild(goToSpot);
 
-    // spot.classList.add(place.id);
     spot.setAttribute("data-id", place.id);
 
     spot.addEventListener("click", () => {
@@ -124,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     mapInfo.append(spot);
+    // 지도 목록 추가 끝
 
     kakao.maps.event.addListener(marker, "mouseover", function () {
       infowindow.open(map, marker);
@@ -199,6 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (status === kakao.maps.services.Status.OK) {
         console.log("검색 결과:", data);
 
+        const count = document.querySelector(".count");
+        count.innerHTML = `총 <strong>${pagination.totalCount}</strong>개의 검색 결과가 있습니다.`;
+
         pharmacyPagination = pagination;
 
         // 검색 결과를 지도에 마커로 표시
@@ -213,6 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("검색 실패:", status);
       }
 
+      // 더보기 버튼 추가
       const moreMarker = document.createElement("div");
       moreMarker.classList.add("moreMarker");
 
@@ -231,6 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
       moreBtn.addEventListener("click", () => {
         nextPharmacyPage(pharmacyPagination);
       });
+      // 더보기 버튼 끝
 
       if (!pagination.hasNextPage) {
         document.querySelector(".moreBtn").remove();
@@ -242,6 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
         myLocation.longitude
       ), // 중심 위치
       radius: myradius * 1000, // 반경 1km
+      sort: "distance",
     } // 내 위치 정보
   ); //ps.keywordSearch(
 
@@ -251,8 +257,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (pagination.hasNextPage) {
-      //호출만으로 콜백이 다시 실행됨
       document.querySelector(".moreBtn").remove();
+      // pagination의 nextPage()를 호출하면, 자동으로 keywordSearch의 콜백이 다시 실행됨.
       pagination.nextPage();
     }
   }
