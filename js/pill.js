@@ -45,8 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const pillType = document.createElement("div");
   pillType.classList.add("pillType");
 
-
-
   searchOption.addEventListener("change", (e) => {
     console.log(e.target.value);
     if (e.target.value === "itemName") {
@@ -83,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // 처음엔 1페이지
     getData(userInput, 1);
   });
 
@@ -97,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
       noSearch.style.display = "none"; // 초기화
 
       pillContainer.style.height = "100vh";
-      pageContainer.style.height = "150px";
+      pageContainer.style.height = "10vh";
 
       iconContainer.style.height = 0;
       iconContainer.style.margin = 0;
@@ -183,53 +182,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const url = `http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList?ServiceKey=${API_KEY}&type=${"json"}&pageNo=${pageNo}&numOfRows=${numOfRows}&${searchType}=${userInput}`;
 
-    const response = await fetch(url);
-    const data = await response.json();
+    axios
+      .get(url)
+      .then((response) => {
+        const data = response.data.body;
 
-    console.log(data);
+        console.log(data);
+        const pills = [];
+        page = data.pageNo;
+        total = data.totalCount;
 
-    if (!data.body.items) {
-      console.log("없는데요?");
-      noSearch.style.display = "flex";
-      count.innerHTML = "";
-      return;
-    }
+        data.items.map((pill) => {
+          /**
+           * name: 약 이름
+           * company: 제약회사
+           * efficacy: 효능
+           * method: 복용방법
+           * image: 사진
+           * date: 등록 날짜
+           * code: 코드
+           */
+          pills.push({
+            name: pill.itemName,
+            company: pill.entpName,
+            efficacy: pill.efcyQesitm
+              ? pill.efcyQesitm.replaceAll(".", ". ")
+              : pill.efcyQesitm,
+            method: pill.useMethodQesitm
+              ? pill.useMethodQesitm.replaceAll(".", ". ")
+              : pill.useMethodQesitm,
+            image: pill.itemImage ? pill.itemImage : "",
+            date: pill.openDe,
+            code: pill.bizrno,
+          });
+        });
 
-    const pills = [];
-    page = data.body.pageNo;
-    total = data.body.totalCount;
+        // 이름으로 오름차순 정렬(페이지당 적용)
+        pills.sort((a, b) => {
+          return a.name.localeCompare(b.name);
+        });
 
-    data.body.items.map((pill) => {
-      /**
-       * name: 약 이름
-       * company: 제약회사
-       * efficacy: 효능
-       * method: 복용방법
-       * image: 사진
-       * date: 등록 날짜
-       * code: 코드
-       */
-      pills.push({
-        name: pill.itemName,
-        company: pill.entpName,
-        efficacy: pill.efcyQesitm
-          ? pill.efcyQesitm.replaceAll(".", ". ")
-          : pill.efcyQesitm,
-        method: pill.useMethodQesitm
-          ? pill.useMethodQesitm.replaceAll(".", ". ")
-          : pill.useMethodQesitm,
-        image: pill.itemImage ? pill.itemImage : "",
-        date: pill.openDe,
-        code: pill.bizrno,
+        printInfo(pills);
+      })
+      .catch((error) => {
+        console.error("없는데요?");
+        console.error(error);
+        noSearch.style.display = "flex";
+        count.innerHTML = "";
       });
-    });
-
-    // 이름으로 오름차순 정렬(페이지당 적용)
-    pills.sort((a, b) => {
-      return a.name.localeCompare(b.name);
-    });
-
-    printInfo(pills);
   } //  async function getData(userInput, pageNo)
 
   /** 약 리스트 출력 */
@@ -333,6 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pageBtn.value = i;
       pageBtn.classList.add("pageBtn");
 
+      // 버튼이 현재 페이지와 같다면
       if (page === i) {
         pageBtn.classList.add("active");
       }
