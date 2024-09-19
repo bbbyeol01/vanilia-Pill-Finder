@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/pill-capsule.png" type="image/x-icon">
     <title>Pill Finder</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-   
     <link rel="stylesheet" href="css/pill.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 
@@ -55,14 +54,16 @@
         </section>
         <section class="searchContainer">
             <article class="search">
-                <select class="searchOption">
-                    <!-- 이름으로 검색-->
-                    <option value="itemName">이름</option>
-                    <!-- 효능으로 검색-->
-                    <option value="efcyQesitm">증상</option>
-                </select>
-                <input type="text" class="searchInput" placeholder="약 이름을 검색하세요">
-                <button type="submit" class="searchBtn"><img src="./images/search-icon.png"></button>
+                <form method="get" class="searchForm">
+                    <select class="searchOption">
+                        <!-- 이름으로 검색-->
+                        <option value="itemName">이름</option>
+                        <!-- 효능으로 검색-->
+                        <option value="efcyQesitm">증상</option>
+                    </select>
+                    <input type="text" class="searchInput" placeholder="약 이름을 검색하세요">
+                    <button type="submit" class="searchBtn"><img src="./images/search-icon.png"></button>
+                </form>
             </article>
         </section>
         <section class="pillContainer">
@@ -79,7 +80,7 @@
         </section>
 
     </main>
-    
+
     <script type="module" src="js/base.js"></script>
     <script type="module" src="js/pill.js"></script>
 </body>

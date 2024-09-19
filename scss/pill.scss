@@ -295,52 +295,58 @@ aside {
 
 
     .search {
-        display: flex;
-        justify-content: center;
-        border: solid lightgray 1px;
-        border-radius: 30px;
         width: 70%;
         height: 50px;
 
-        input {
-            width: 70%;
-            background-color: transparent;
-            border: none;
-            border-radius: inherit;
-            outline: none;
-            font-size: 12pt;
-            margin-left: 10px;
-        }
-
-        input::placeholder {
-            color: #888888;
-        }
-
-        button {
+        .searchForm {
             display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            width: 15%;
-            margin-right: 10px;
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
+            justify-content: center;
+            border: solid lightgray 1px;
+            border-radius: 30px;
+            width: 100%;
+            height: 100%;
+
+            input {
+                width: 70%;
+                background-color: transparent;
+                border: none;
+                border-radius: inherit;
+                outline: none;
+                font-size: 12pt;
+                margin-left: 10px;
+            }
+
+            input::placeholder {
+                color: #888888;
+            }
+
+            button {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                width: 15%;
+                margin-right: 10px;
+                border: none;
+                background-color: transparent;
+                cursor: pointer;
+            }
+
+            img {
+                width: 25px;
+                height: 25px;
+            }
+
+            select {
+                background-color: transparent;
+                border: none;
+                border-radius: inherit;
+                outline: none;
+                padding: 0 10px 0px 15px;
+                color: #888;
+                font-size: 15px;
+            }
         }
 
-        img {
-            width: 25px;
-            height: 25px;
-        }
-
-        select {
-            background-color: transparent;
-            border: none;
-            border-radius: inherit;
-            outline: none;
-            padding: 0 10px 0px 15px;
-            color: #888;
-            font-size: 15px;
-        }
 
     }
 

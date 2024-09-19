@@ -1,4 +1,4 @@
-import API_KEY from "./config.js";
+import API_KEYS from "./config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const companyPage = initCompanyPage();
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const searchBtn = document.querySelector(".searchBtn");
   const searchInput = document.querySelector(".searchInput");
+  const searchForm = document.querySelector(".searchForm");
   const pillContainer = document.querySelector(".pillContainer");
   const pageContainer = document.querySelector(".pageContainer");
   const pageList = document.querySelector(".pageList");
@@ -54,8 +55,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /** 검색(버튼 클릭) */
-  searchBtn.addEventListener("click", () => {
+  /** 검색했을 때 */
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     let userInput = searchInput.value;
     page = 1;
     startPage = 1;
@@ -85,40 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     getData(userInput, 1);
   });
 
-  /** 검색(엔터) */
-  searchInput.addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-      // Enter 키가 눌렸을 때
-      let userInput = searchInput.value;
-
-      page = 1;
-      startPage = 1;
-      noSearch.style.display = "none"; // 초기화
-
-      pillContainer.style.height = "100vh";
-      pageContainer.style.height = "10vh";
-
-      iconContainer.style.height = 0;
-      iconContainer.style.margin = 0;
-
-      pillImg.style.width = 0;
-      pillImg.style.height = 0;
-      pillImg.style.opacity = 0;
-
-      Array.from(pillContainer.children).forEach((child) => {
-        if (
-          !child.classList.contains("noSearch") &&
-          !child.classList.contains("loading") &&
-          !child.classList.contains("count")
-        ) {
-          pillContainer.removeChild(child);
-        }
-      });
-
-      getData(userInput, 1);
-    }
-  });
-
   /** 약 정보 클릭 시 모달 창 띄우기 */
   infoCloseBtn.addEventListener("click", () => {
     modal.style.opacity = 0;
@@ -140,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /** 페이지 다음 버튼 클릭 시 */
+  /** 다음 버튼 클릭 시 */
   nextBtn.addEventListener("click", () => {
     console.log(`startPage = ${startPage}`);
     if (startPage < total / numOfPage) {
@@ -180,7 +150,9 @@ document.addEventListener("DOMContentLoaded", () => {
   async function getData(userInput, pageNo) {
     let searchType = searchOption.value;
 
-    const url = `http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList?ServiceKey=${API_KEY}&type=${"json"}&pageNo=${pageNo}&numOfRows=${numOfRows}&${searchType}=${userInput}`;
+    const url = `http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList?ServiceKey=${
+      API_KEYS.PILL_API_KEY
+    }&type=${"json"}&pageNo=${pageNo}&numOfRows=${numOfRows}&${searchType}=${userInput}`;
 
     axios
       .get(url)
@@ -229,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error(error);
         noSearch.style.display = "flex";
         count.innerHTML = "";
-      });
+      }); // axios
   } //  async function getData(userInput, pageNo)
 
   /** 약 리스트 출력 */
@@ -301,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
           goToPage.style.backgroundColor = "lightgray";
         }
       });
-    });
+    }); // pills.forEach((pill, index) => {
 
     renderPagination();
     pillContainer.appendChild(pageContainer);
