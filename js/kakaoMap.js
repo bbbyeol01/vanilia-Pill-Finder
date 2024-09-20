@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     level: 6, // 지도의 확대 레벨
   };
 
-  // 지도 생성
+  // 지도 객체 생성
   const map = new kakao.maps.Map(mapContainer, mapOption);
 
   const zoomControl = new kakao.maps.ZoomControl();
@@ -182,10 +182,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 내 위치로 지도 센터 변경
     setCenter(latitude, longitude);
-
-    // 장소 검색 객체 생성
   }); // getMyLocation((latitude, longitude) => {
 
+  // 장소 검색 객체 생성
   const ps = new kakao.maps.services.Places();
 
   // 내 위치 근처 약국 검색

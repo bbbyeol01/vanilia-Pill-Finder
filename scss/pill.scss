@@ -1,99 +1,3 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
-
-* {
-    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-}
-
-html,
-body {
-    padding: 0;
-    margin: 0;
-}
-
-
-header {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border-bottom: solid lightgray 1px;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 70px;
-    z-index: 99999;
-
-    section {
-        display: flex;
-        align-items: center;
-        width: 70vw;
-        height: inherit;
-
-        .logoContainer {
-            display: flex;
-            align-items: center;
-            width: 30%;
-            min-width: 20vw;
-            height: inherit;
-            gap: 10px;
-            cursor: pointer;
-
-            .logo {
-                display: flex;
-                align-items: center;
-                height: 100%;
-                text-align: center;
-                font-size: 15pt;
-                font-weight: bold;
-                cursor: pointer;
-            }
-
-            .logoImg {
-                height: 30%;
-            }
-
-        }
-
-
-        .menuContainer {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 20px;
-
-            * {
-                cursor: pointer;
-            }
-
-        }
-
-        // .menuOpen {
-        //     height: 100%;
-        //     background-color: transparent;
-        //     border: none;
-        //     cursor: pointer;
-
-        //     img {
-        //         width: 30px;
-        //         height: 30px;
-        //     }
-        // }
-    }
-
-
-}
-
-
-main {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 aside {
     position: absolute;
     width: 100px;
@@ -210,6 +114,20 @@ aside {
 
         .method {
             width: 80%;
+        }
+
+        .goToDetail {
+            width: 80%;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: lightgray;
+
+            img {
+                width: 20px;
+                height: 20px;
+            }
         }
 
         .findPharmacy {
@@ -487,37 +405,3 @@ aside {
 }
 
 
-
-// 기본 CSS를 작성합니다. 
-// 기본으로 작성되는 CSS는 1199px보다 큰 화면에서 작동 됩니다.
-// 세로모드 모바일 디바이스 (가로 해상도가 576px 보다 작은 화면에 적용) 
-@media (max-width: 575px) {}
-
-// 가로모드 모바일 디바이스 (가로 해상도가 768px 보다 작은 화면에 적용) 
-@media (max-width: 767px) {
-    .infoContainer {
-        width: 80vw;
-    }
-
-    .nameContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-
-    .logo {
-        visibility: hidden;
-    }
-}
-
-// 태블릿 디바이스 (가로 해상도가 992px 보다 작은 화면에 적용) 
-@media (max-width: 991px) {
-
-    .count {
-        margin: 3vh;
-    }
-}
-
-// 데스크탑 (가로 해상도가 1200px 보다 작은 화면에 적용)
-@media (max-width: 1199px) {}

@@ -1,73 +1,4 @@
 @charset "UTF-8";
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
-* {
-  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
-}
-
-html,
-body {
-  padding: 0;
-  margin: 0;
-}
-
-header {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border-bottom: solid lightgray 1px;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 70px;
-  z-index: 99999;
-}
-header section {
-  display: flex;
-  align-items: center;
-  width: 70vw;
-  height: inherit;
-}
-header section .logoContainer {
-  display: flex;
-  align-items: center;
-  width: 30%;
-  min-width: 20vw;
-  height: inherit;
-  gap: 10px;
-  cursor: pointer;
-}
-header section .logoContainer .logo {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  text-align: center;
-  font-size: 15pt;
-  font-weight: bold;
-  cursor: pointer;
-}
-header section .logoContainer .logoImg {
-  height: 30%;
-}
-header section .menuContainer {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 20px;
-}
-header section .menuContainer * {
-  cursor: pointer;
-}
-
-main {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 aside {
   position: absolute;
   width: 100px;
@@ -167,6 +98,18 @@ aside .menuOpen img {
 }
 .modal .infoContainer .method {
   width: 80%;
+}
+.modal .infoContainer .goToDetail {
+  width: 80%;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: lightgray;
+}
+.modal .infoContainer .goToDetail img {
+  width: 20px;
+  height: 20px;
 }
 .modal .infoContainer .findPharmacy {
   width: 80%;
@@ -398,25 +341,4 @@ aside .menuOpen img {
   background-color: #96b9ff;
   color: white;
   font-weight: bolder;
-}
-
-@media (max-width: 767px) {
-  .infoContainer {
-    width: 80vw;
-  }
-
-  .nameContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .logo {
-    visibility: hidden;
-  }
-}
-@media (max-width: 991px) {
-  .count {
-    margin: 3vh;
-  }
 }

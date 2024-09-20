@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/pill-capsule.png" type="image/x-icon">
     <title>Pill Finder</title>
+    <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/pill.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -21,8 +22,7 @@
             <div class="menuContainer">
                 <div class="pillFinder">약 찾기</div>
                 <div class="findMap">지도</div>
-                <!-- <div class="menu3">상비약</div> -->
-                <div class="menu">메뉴</div>
+                <div class="login">로그인</div>
             </div>
         </section>
       
@@ -39,19 +39,19 @@
                 <div class="image"><img class="pillImg" src="/images/null-img.jpg" alt="" srcset=""> </div>
                 <div class="efficacy">효능</div>
                 <div class="method">복용 방법</div>
-                <div class="findPharmacy">
-                    <button class="goToDetail"> 
-                        자세히 보기
-                    </button>
-                    <button class="goToPage"> 
-                        판매처 찾기
-                    </button>
+                     <div class="findPharmacy">
+                            <!-- <button class="goToDetail">  자세히 보기</button> -->
+                    <button class="goToPage"> 판매처 찾기 </button>
+                     </div>
+                 
                 </div>
             </article>
         </section>
+
         <section class="iconContainer">
             <img class="pillImg float-image" src="images/pill-3d-icon.png" alt="" srcset="">
         </section>
+
         <section class="searchContainer">
             <article class="search">
                 <form method="get" class="searchForm">
@@ -66,6 +66,7 @@
                 </form>
             </article>
         </section>
+
         <section class="pillContainer">
             <div class="count"></div>
             <div class="noSearch">

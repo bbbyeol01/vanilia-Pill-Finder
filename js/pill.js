@@ -140,6 +140,23 @@ document.addEventListener("DOMContentLoaded", () => {
       "동화약품(주)": "https://www.dong-wha.co.kr/product/pharm_search1.asp",
       "(주)보령": "https://pharm.boryung.co.kr/product/search_pharmacy.do",
       "(주)녹십자": "https://m.gcbiopharma.com/product/store.do",
+      "신신제약(주)": "https://www.sinsin.com/sinsinpas/pop_store.php",
+      "삼진제약(주)":
+        "https://www.samjinpharm.co.kr/front/kr/product/pharmacy.asp",
+      "정우신약(주)": "http://www.jwpharm.co.kr/m/pharmacy/step1.php",
+      "지엘파마(주)": "https://www.glpharma.co.kr/purchase",
+      "조아제약(주)":
+        "https://www.joeunai.co.kr/Customer/Find_Shop/FindShop.asp",
+      "동성제약(주)":
+        "http://dongsung-pharm.com/user/product/product_Pharmsearchlist.php?act_Flag=inside&search_key=product_name&mcate1=2&stype=detail&cate1=&searchWD2=",
+      "(주)퍼슨": "https://www.firsonhealthcare.com/sub_customer/pharmacy.php",
+      "부광약품(주)": "https://www.bukwang.co.kr/m68.php",
+      "(주)녹십자": "http://m.gcbiopharma.com/product/store.do",
+      "오스틴제약(주)": "https://www.jeyak.co.kr/sub06/sub01.php",
+      "한화제약(주)": "http://erp.hwpharm.com/OTC_DrugStore.asp",
+      "(주)동구바이오제약": "https://www.dongkoo.com/kor/product/list",
+      주식회사제뉴원사이언스: "https://genuonesciences.com/products/otc/",
+      "(주)휴비스트제약": "http://www.huvist.co.kr/sub02/cmo.php",
     };
 
     // Map으로 변환
