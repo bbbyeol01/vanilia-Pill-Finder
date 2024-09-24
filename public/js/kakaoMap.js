@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
   /** 내 위치 불러오기 => callback(latitude, longitude) */
   function getMyLocation(callback) {
     navigator.geolocation.getCurrentPosition(function (pos) {
-      console.log("init location");
       callback(pos.coords.latitude, pos.coords.longitude);
     });
   }
@@ -169,8 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
         offset: new kakao.maps.Point(17, 35), // 마커의 중심점 위치
       }
     );
-
-    console.log("마커 이미지:", customMarkerImage);
 
     // 내 위치 마커 추가
     new kakao.maps.Marker({

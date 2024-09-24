@@ -29,7 +29,7 @@ main {
   margin-bottom: 7vh;
 }
 .loginContainer .iconContainer img {
-  width: 20%;
+  width: 140px;
   min-width: 100px;
   animation: float 4s ease-in-out infinite;
 }

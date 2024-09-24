@@ -71,7 +71,7 @@ header section .menuContainer .userInfo .menu {
   z-index: 10;
   transition: max-height 0.3s ease-out;
   overflow: hidden;
-  right: 10vw;
+  right: 15vw;
 }
 header section .menuContainer .userInfo .nickname {
   max-width: 150px;

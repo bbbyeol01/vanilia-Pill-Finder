@@ -430,7 +430,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "건조",
     "우울증",
     "무기력",
-    "불안",
     "불면",
     "타박상",
     "물집",
@@ -455,5 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "재채기",
     "콧물",
     "기침",
+    "당뇨",
+    "피로",
   ];
 });

@@ -31,7 +31,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const logout = document.querySelector(".logout");
   const profileImage = document.querySelectorAll(".profile-image");
 
-  const token = localStorage.getItem("token");
+  const JWTtoken = localStorage.getItem("token");
+
+  if (JWTtoken) {
+    let now = new Date();
+
+    // 만료시간(expires)이 지났다면
+    if (JWTtoken.expires > now.getTime()) {
+      console.log(true);
+      localStorage.removeItem("token");
+      return;
+    }
+
+    getUserInfo();
+  }
 
   if (userInfo) {
     userInfo.style.display = "none";
@@ -39,10 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
     userInfo.addEventListener("mouseenter", () => {
       userMenu.classList.add("active");
     });
-  }
-
-  if (token) {
-    getUserInfo();
   }
 
   if (userMenu) {

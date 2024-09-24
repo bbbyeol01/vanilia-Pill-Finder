@@ -145,6 +145,9 @@ main .mapContainer .mapWrapper .mapInfo .moreMarker .moreBtn {
 main .mapContainer .mapWrapper .mapInfo .moreMarker .moreBtn img {
   height: 30%;
 }
+main .mapContainer .mapWrapper .mapInfo::-webkit-scrollbar {
+  display: none;
+}
 
 @media (max-width: 767px) {
   .infoContainer {

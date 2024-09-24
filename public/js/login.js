@@ -1,25 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let JWTtoken = JSON.parse(localStorage.getItem("token"));
-  console.log(JWTtoken);
-
-  if (JWTtoken) {
-    const now = new Date();
-
-    // 만료시간(expires)이 현재 시간보다 작다면
-    if (JWTtoken.expires < now.getTime()) {
-      localStorage.removeItem("token");
-      return;
-    }
-
-    location.href = "/";
-  }
-
   const showPwd = document.querySelector(".showPwd");
   const showImg = document.querySelector(".showImg");
 
   const pwd = document.querySelector(".pwd");
 
   const loginForm = document.querySelector(".loginForm");
+
+  const JWTtoken = JSON.parse(localStorage.getItem("token"));
+
+  console.log(JWTtoken);
+
+  if (JWTtoken) {
+    let now = new Date();
+
+    // 만료시간(expires)이 지났다면
+    if (JWTtoken.expires > now.getTime()) {
+      console.log(true);
+      localStorage.removeItem("token");
+      return;
+    }
+
+    location.href = "/";
+  }
 
   let displayPwd = false;
 

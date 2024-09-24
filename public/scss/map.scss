@@ -182,10 +182,17 @@ main {
 
             }
 
+            .mapInfo::-webkit-scrollbar {
+                display: none;
+            }
+
         }
 
 
     }
+
+
+
 
 
 
