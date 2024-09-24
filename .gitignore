@@ -1,0 +1,4 @@
+# Ignore API key config file
+/public/js/config.js
+/.vscode
+.env
