@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/pill-capsule.png" type="image/x-icon">
+    <title>Pill Finder</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/pill.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <section class="">
+            <div class="logoContainer">
+                <img class="logoImg" src="images/pill-icon.png" alt="" srcset="">
+                <div class="logo">PILL FINDER </div>
+
+            </div>
+
+            <div class="menuContainer">
+                <div class="pillFinder">약 찾기</div>
+                <div class="findMap">지도</div>
+                <div class="login">로그인</div>
+                <div class="userInfo">
+                    <!-- <div class="nickname"></div> -->
+                    <img class="profile-image" src="images/default_profile.png"/>
+                    <div class="menu">
+                        <div class="mypage">마이페이지</div>
+                        <!-- <div class="my-pill">설정</div> -->
+                        <div class="logout">로그아웃</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+      
+    </header>
+
+    <main>
+        <section class="modal">
+            <article class="infoContainer">
+                <div class="controlContainer">
+                    <!-- <img src="images/heart.png" alt="" srcset=""> -->
+                    <img class="close" src="images/close-icon.png" alt="" srcset="">
+                </div>
+                <div class="nameContainer">
+                    <div class="company">제약</div>
+                    <div class="name">약 이름</div>
+                </div>
+                <div class="image">
+                    <div class="bookmark"> <img class="bookmark-img" src="images/star.png" alt="" srcset=""></div>
+                    <img class="pillImg" src="images/null-img.jpg" alt="" srcset=""> </div>
+                <div class="symptom"></div>
+                <div class="method">복용 방법</div>
+                <div class="efficacy">효능</div>
+                     <div class="findPharmacy">
+                            <!-- <button class="goToDetail">  자세히 보기</button> -->
+                    <button class="goToPage"> 판매처 찾기 </button>
+                     </div>
+                 
+                </div>
+            </article>
+        </section>
+
+        <section class="iconContainer">
+            <img class="pillImg float-image" src="images/pill-3d-icon.png" alt="" srcset="">
+        </section>
+
+        <section class="searchContainer">
+            <article class="search">
+                <form method="get" class="searchForm">
+                    <select class="searchOption">
+                        <!-- 이름으로 검색-->
+                        <option value="itemName">이름</option>
+                        <!-- 효능으로 검색-->
+                        <option value="efcyQesitm">증상</option>
+                    </select>
+                    <input type="text" class="searchInput" placeholder="약 이름을 검색하세요">
+                    <button type="submit" class="searchBtn"><img src="./images/search-icon.png"></button>
+                </form>
+            </article>
+        </section>
+
+        <section class="pillContainer">
+            <div class="count"></div>
+            <div class="noSearch">
+                <p>검색 결과가 없습니다.</p>
+            </div>
+    
+            <article class="pageContainer">
+                <button class="prevBtn"><img src="images/left-button-icon.png" alt="" srcset=""></button>
+                <div class="pageList"></div>
+                <button class="nextBtn"><img src="images/right-button-icon.png" alt="" srcset=""></button>
+            </article>
+        </section>
+
+    </main>
+
+    <script type="module" src="js/base.js"></script>
+    <script type="module" src="js/pill.js"></script>
+</body>
+</html>

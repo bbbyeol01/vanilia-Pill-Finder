@@ -1,0 +1,93 @@
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .userInfoContainer {
+        margin-top: 10vh;
+        width: 50vw;
+        min-width: 300px;
+        height: 30vh;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        .profileContainer {
+            width: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            border: 1px solid lightgray;
+
+
+            img {
+                width: 100%;
+                min-width: 100px;
+                border-radius: inherit;
+            }
+
+
+        }
+
+        .nickname {
+            font-size: 14pt;
+            font-weight: bold;
+        }
+    }
+
+    .mySymptomContainer {
+        width: 50vw;
+        min-width: 300px;
+        height: 5vh;
+        min-height: 50px;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        * {
+            background-color: lightcoral;
+            color: white;
+            font-size: 12pt;
+            padding: 10px 15px 10px 15px;
+            border-radius: 50px;
+        }
+    }
+
+    .myPillContainer {
+        width: 50vw;
+        min-width: 300px;
+        height: 30vh;
+        min-height: 50px;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+
+
+// 기본 CSS를 작성합니다. 
+// 기본으로 작성되는 CSS는 1199px보다 큰 화면에서 작동 됩니다.
+// 세로모드 모바일 디바이스 (가로 해상도가 576px 보다 작은 화면에 적용) 
+@media (max-width: 575px) {}
+
+// 가로모드 모바일 디바이스 (가로 해상도가 768px 보다 작은 화면에 적용) 
+@media (max-width: 767px) {
+    .mySymptomContainer {
+        flex-wrap: wrap;
+    }
+
+}
+
+// 태블릿 디바이스 (가로 해상도가 992px 보다 작은 화면에 적용) 
+@media (max-width: 991px) {}
+
+// 데스크탑 (가로 해상도가 1200px 보다 작은 화면에 적용)
+@media (max-width: 1199px) {}

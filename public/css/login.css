@@ -1,0 +1,160 @@
+@charset "UTF-8";
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginContainer {
+  margin-top: 10vh;
+  width: 50vw;
+  min-width: 400px;
+  height: 80vh;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loginContainer .title {
+  font-size: 15pt;
+  font-weight: bolder;
+  margin-bottom: 5vh;
+}
+.loginContainer .iconContainer {
+  width: 80%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 7vh;
+}
+.loginContainer .iconContainer img {
+  width: 20%;
+  min-width: 100px;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0% {
+    transform: translateY(10px);
+    /* 원래 위치 */
+  }
+  50% {
+    transform: translateY(35px);
+  }
+  100% {
+    transform: translateY(10px);
+    /* 원래 위치로 돌아옴 */
+  }
+}
+.loginContainer .inputContainer .loginForm {
+  min-height: 100px;
+  min-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5vh;
+}
+.loginContainer .inputContainer .id,
+.loginContainer .inputContainer .pwdContainer,
+.loginContainer .inputContainer .loginBtn {
+  outline: none;
+  font-size: 12pt;
+  width: 50%;
+  min-width: 300px;
+  max-width: 500px;
+  height: 60px;
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  background-color: transparent;
+}
+.loginContainer .inputContainer .id,
+.loginContainer .inputContainer .pwdContainer {
+  display: flex;
+  padding: 0 20px 0 20px;
+}
+.loginContainer .inputContainer .id .pwd,
+.loginContainer .inputContainer .pwdContainer .pwd {
+  width: 85%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 12pt;
+}
+.loginContainer .inputContainer .id .showPwd,
+.loginContainer .inputContainer .pwdContainer .showPwd {
+  border: none;
+  background-color: transparent;
+  width: 15%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+}
+.loginContainer .inputContainer .id .showPwd img,
+.loginContainer .inputContainer .pwdContainer .showPwd img {
+  height: 50%;
+  opacity: 50%;
+}
+.loginContainer .inputContainer .loginBtn {
+  width: calc(50% + 40px);
+  background-color: #96b9ff;
+  color: white;
+  border: white solid 1px;
+  min-width: 340px;
+  padding: 0;
+  cursor: pointer;
+}
+.loginContainer .inputContainer input::placeholder {
+  color: #999;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+  75% {
+    transform: translateX(-8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.loginContainer .inputContainer .shake {
+  animation: shake 0.3s ease-in-out;
+}
+.loginContainer .findMemberContainer {
+  width: calc(50% + 40px);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 5vh;
+}
+.loginContainer .findMemberContainer a {
+  color: #999;
+}
+.loginContainer .snsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loginContainer .snsContainer button {
+  border: none;
+  background-color: transparent;
+}
+.loginContainer .snsContainer .kakao,
+.loginContainer .snsContainer .naver {
+  cursor: pointer;
+}
+.loginContainer .snsContainer .kakao img,
+.loginContainer .snsContainer .naver img {
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/pill-capsule.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css">
+
+    <title>Login</title>
+</head>
+<body>
+  
+    <header>
+        <section class="">
+            <div class="logoContainer">
+                <img class="logoImg" src="images/pill-icon.png" alt="" srcset="">
+                <div class="logo">PILL FINDER </div>
+
+            </div>
+
+            <div class="menuContainer">
+                <div class="pillFinder">약 찾기</div>
+                <div class="findMap">지도</div>
+                <div class="login">로그인</div>
+                <div class="userInfo">
+                    <!-- <div class="nickname"></div> -->
+                    <img class="profile-image" src="images/default_profile.png"/>
+                    <div class="menu">
+                        <div class="mypage">마이페이지</div>
+                        <!-- <div class="my-pill">설정</div> -->
+                        <div class="logout">로그아웃</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+      
+    </header>
+
+    <main>
+        <section class="loginContainer">
+            <!-- <div class="title">LOGIN</div> -->
+            <div class="iconContainer">
+                <!-- <div class="overlay"></div> -->
+                <img class="pill-tablet float logoImg" src="images/pill-tablet.png" alt="" srcset="">
+            </div>
+            <div class="inputContainer">
+                <form class="loginForm" method="post">
+                    <input type="text" class="id" id="username" name="username" placeholder="아이디" maxlength="30">
+                    <div class="pwdContainer">
+                        <input type="password" name="password" class="pwd" id="password" placeholder="비밀번호" maxlength="50">
+                        <div class="showPwd"> <img class="showImg" src="images/eye-true.png" alt="" srcset=""> </div>
+                    </div>
+                    <button type="submit" class="loginBtn">로그인</button>
+                </form>
+            </div>
+            <div class="findMemberContainer">
+                <a href="" class="forgotId">비밀번호를 잊으셨나요?</a>
+                <!-- <a href="" class="forgotPwd">비밀번호 찾기</a> -->
+            </div>
+            <!-- <div class="snsContainer">
+                <button class="kakao"><img src="images/kakao-icon-rectangle.png" alt="" srcset=""></button>
+                <button class="naver"><img src="images/naver_login_rectangle.png" alt="" srcset=""></button>
+            </div> -->
+        </section>
+    </main>
+    
+    <script type="module" src="js/base.js"></script>
+    <script type="module" src="js/login.js"></script>
+</body>
+</html>

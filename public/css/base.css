@@ -1,0 +1,131 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+* {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-bottom: solid lightgray 1px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 70px;
+  z-index: 99999;
+}
+header section {
+  display: flex;
+  align-items: center;
+  width: 70vw;
+  height: inherit;
+}
+header section .logoContainer {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  min-width: 20vw;
+  height: inherit;
+  gap: 10px;
+  cursor: pointer;
+}
+header section .logoContainer .logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  font-size: 15pt;
+  font-weight: bold;
+  cursor: pointer;
+}
+header section .logoContainer .logoImg {
+  height: 30%;
+}
+header section .menuContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+header section .menuContainer * {
+  cursor: pointer;
+}
+header section .menuContainer .userInfo {
+  align-items: center;
+  gap: 20px;
+}
+header section .menuContainer .userInfo .menu {
+  display: none;
+  width: 100px;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 10;
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+  right: 10vw;
+}
+header section .menuContainer .userInfo .nickname {
+  max-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+header section .menuContainer .userInfo .profile-image {
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border-radius: 50px;
+  border: 1px solid lightgray;
+}
+header section .menuContainer .userInfo .profile-image img {
+  width: 100%;
+  border-radius: inherit;
+}
+header section .menuContainer .userInfo .menu.active {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 15px;
+  margin-top: 160px;
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .infoContainer {
+    width: 80vw;
+  }
+
+  .nameContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  .profile-image {
+    display: block;
+  }
+
+  .logo {
+    visibility: hidden;
+  }
+}
+@media (max-width: 991px) {
+  .count {
+    margin: 3vh;
+  }
+}
