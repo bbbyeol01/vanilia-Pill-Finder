@@ -4,16 +4,17 @@ main {
   justify-content: center;
 }
 main .userInfoContainer {
-  margin-top: 10vh;
-  width: 50vw;
+  width: 60vw;
   min-width: 300px;
   height: 30vh;
+  min-height: 30vh;
   background-color: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
+  overflow: scroll;
 }
 main .userInfoContainer .profileContainer {
   width: 150px;
@@ -28,22 +29,31 @@ main .userInfoContainer .profileContainer img {
   min-width: 100px;
   border-radius: inherit;
 }
-main .userInfoContainer .nickname {
+main .userInfoContainer .nicknameContainer {
+  display: flex;
+  align-items: flex-end;
+}
+main .userInfoContainer .nicknameContainer .nickname {
   font-size: 14pt;
   font-weight: bold;
 }
 main .mySymptomContainer {
-  width: 50vw;
+  margin-top: 20px;
+  width: 60vw;
   min-width: 300px;
-  height: 5vh;
-  min-height: 50px;
   background-color: transparent;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
-main .mySymptomContainer * {
+main .mySymptomContainer .mySymptom {
+  cursor: pointer;
+  max-width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   background-color: lightcoral;
   color: white;
   font-size: 12pt;
@@ -51,19 +61,25 @@ main .mySymptomContainer * {
   border-radius: 50px;
 }
 main .myPillContainer {
-  width: 50vw;
+  margin-top: 10px;
+  width: 60vw;
   min-width: 300px;
-  height: 30vh;
-  min-height: 50px;
   background-color: transparent;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
-
-@media (max-width: 767px) {
-  .mySymptomContainer {
-    flex-wrap: wrap;
-  }
+main .myPillContainer .myPill {
+  cursor: pointer;
+  max-width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: #96b9ff;
+  color: white;
+  font-size: 12pt;
+  padding: 10px 15px 10px 15px;
+  border-radius: 50px;
 }

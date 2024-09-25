@@ -123,7 +123,7 @@ app.post("/login", async (req, res) => {
 
     res.json({ token });
   } catch (error) {
-    res.status(500).send("Error logging in");
+    res.status(500).send("Server Error");
   }
 });
 
@@ -149,7 +149,7 @@ function authenticateToken(req, res, next) {
 // 유저 정보 반환 -> authenticateToken를 통과한 req(유효 토큰)만 조회
 app.get("/api/user-info", authenticateToken, async (req, res) => {
   try {
-    // 토큰에서 디코딩된 사용자 이름을 사용하여 DB에서 유저 정보 조회
+    // DB에서 유저 정보 조회
     const [user] = await db.query(
       "SELECT username, email, nickname, profile_image FROM `user` WHERE username = ?",
       [req.user.username]
@@ -167,7 +167,7 @@ app.get("/api/user-info", authenticateToken, async (req, res) => {
   }
 });
 
-//카카오
+// 카카오;
 // passport.use(
 //   new KakaoStrategy(
 //     {
@@ -228,11 +228,51 @@ app.get("/api/user-info", authenticateToken, async (req, res) => {
 // );
 
 app.post("/logout", (req, res) => {
-  // 토큰을 클라이언트에서 지우도록 하고,
   // 블랙리스트에 추가하거나 만료 처리
+  // authorization은 Bearer ${token} 형태로 오기 때문에 공백으로 split
   const token = req.headers.authorization?.split(" ")[1];
 
   res.status(200).json({ message: "로그아웃되었습니다." });
+});
+
+// 유저 증상 가져오기
+app.get("/symptom/:username", async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const query = "SELECT symptom FROM mysymptom WHERE username = ?";
+
+    const [results] = await db.query(query, [username]);
+
+    if (results.length === 0) {
+      return res.status(404).send("등록된 증상이 없습니다.");
+    }
+
+    const symptomList = results.map((row) => row.symptom);
+    res.json({ symptomList });
+  } catch (error) {
+    return res.status(500).send(`DB Error : ${error}`);
+  }
+});
+
+// 유저 약 가져오기
+app.get("/pill/:username", async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const query = "SELECT pill FROM mypill WHERE username = ?";
+
+    const [results] = await db.query(query, [username]);
+
+    if (results.length === 0) {
+      return res.status(404).send("등록된 약이 없습니다.");
+    }
+
+    const pillList = results.map((row) => row.pill);
+    res.json({ pillList });
+  } catch (error) {
+    return res.status(500).send(`DB Error : ${error}`);
+  }
 });
 
 app.listen(PORT, () => {
