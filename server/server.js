@@ -19,8 +19,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // passport
-const passport = require("passport");
-const KakaoStrategy = require("passport-kakao").Strategy;
+// const passport = require("passport");
+// const KakaoStrategy = require("passport-kakao").Strategy;
 
 // server
 const express = require("express");
@@ -270,6 +270,29 @@ app.get("/pill/:username", async (req, res) => {
 
     const pillList = results.map((row) => row.pill);
     res.json({ pillList });
+  } catch (error) {
+    return res.status(500).send(`DB Error : ${error}`);
+  }
+});
+
+// 유저 약 등록
+app.post("/pill/register", async (req, res) => {
+  const { username, pill } = req.body;
+  console.log(username);
+
+  try {
+    const query1 = `SELECT * FROM mypill where username = ? and pill = ?`;
+
+    const [exist] = await db.query(query1, [username, pill]);
+
+    if (exist.length !== 0) {
+      return res.status(403).send(`이미 등록된 약입니다.`);
+    }
+
+    const query2 = `INSERT INTO mypill (username, pill) VALUES (? , ?)`;
+
+    db.query(query2, [username, pill]);
+    res.status(200).send(`등록되었습니다.`);
   } catch (error) {
     return res.status(500).send(`DB Error : ${error}`);
   }

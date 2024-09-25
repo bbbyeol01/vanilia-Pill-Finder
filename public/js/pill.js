@@ -133,13 +133,39 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (!jjim) {
-      bookmarkImg.src = "images/star-fill.png";
-      jjim = !jjim;
-    } else {
-      bookmarkImg.src = "images/star.png";
-      jjim = !jjim;
-    }
+    const token = JSON.parse(localStorage.getItem("token"));
+
+    axios
+      .get("/api/user-info", {
+        headers: {
+          Authorization: `Bearer ${token.value}`, // 헤더에 토큰 추가
+        },
+      })
+      .then((response) => {
+        const user = response.data[0];
+        const username = user.username;
+        const pill = modalName.innerHTML;
+
+        console.log(user);
+
+        const data = {
+          username: username,
+          pill: pill,
+        };
+
+        axios.post("/pill/register", data).then((response) => {
+          if (!jjim) {
+            bookmarkImg.src = "images/star-fill.png";
+            jjim = !jjim;
+          } else {
+            bookmarkImg.src = "images/star.png";
+            jjim = !jjim;
+          }
+        });
+      })
+      .catch((error) => {
+        console.error("유저 정보를 불러올 수 없습니다!! ", error);
+      });
   });
 
   /** 이전 버튼 클릭 시  */
@@ -340,6 +366,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!companyPage.get(modalCompany.innerHTML)) {
           goToPage.style.backgroundColor = "lightgray";
         }
+
+        // 
       });
     }); // pills.forEach((pill, index) => {
 
